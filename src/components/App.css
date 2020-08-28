@@ -1,0 +1,30 @@
+.header-links {
+  height: 100vh;
+  width: 250px;
+  background-color: rgba(0, 0, 0, 0.89);
+  color: rgba(255, 255, 255, 0.897);
+  position: absolute;
+  top: 0;
+  left: -250px;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  z-index: 100;
+}
+
+.header-links ul {
+  list-style: none;
+}
+
+.header-links ul a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.897);
+}
+
+.header-links-open {
+  left: 0px;
+}
+
+.header-links-close {
+  left: -250px;
+}
+/*# sourceMappingURL=App.css.map */

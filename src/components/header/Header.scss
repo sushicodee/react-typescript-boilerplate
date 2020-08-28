@@ -1,0 +1,12 @@
+@import './../../styles/variables';
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    background-color:$primary-color;
+    color:$secondary-color;
+
+    .menu-button{
+        color:$secondary-color;
+    }
+}

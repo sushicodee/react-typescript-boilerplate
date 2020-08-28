@@ -1,0 +1,15 @@
+.header-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.89);
+  color: rgba(255, 255, 255, 0.897);
+}
+
+.header-container .menu-button {
+  color: rgba(255, 255, 255, 0.897);
+}
+/*# sourceMappingURL=Header.css.map */

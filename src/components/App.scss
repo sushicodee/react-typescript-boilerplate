@@ -1,0 +1,30 @@
+@import './../styles/variables';
+
+.header-links{
+    // height: 100vh;
+    // width:$sidebar-width;
+    // background-color: $primary-color;
+    // color:$secondary-color;
+    // position: absolute;
+    // top:0;
+    // left:-$sidebar-width;
+    // transition:0.3s ease-in-out;
+    // z-index: 100;
+    // ul{
+    //     list-style: none;
+        a{
+            text-decoration: none;
+            color:$secondary-color;
+        }
+    }
+
+//     &-open {
+//         left: 0px;
+//     }
+
+//     &-close{
+//         left:-$sidebar-width;
+//     }
+// }
+
+
