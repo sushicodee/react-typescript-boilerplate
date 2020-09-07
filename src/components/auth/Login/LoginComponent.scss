@@ -1,0 +1,10 @@
+@import './../../../styles/variables';
+
+.form-field-error{
+    border-block-color:$error-color
+}
+
+.error-span{
+    color:$error-color;
+    height:12px;
+}

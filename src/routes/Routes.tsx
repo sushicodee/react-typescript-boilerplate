@@ -1,29 +1,33 @@
 import React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import LoginComponent from 'components/auth/Login/LoginComponent';
-import Header from 'components/header/Header';
 import SignupComponent from 'components/auth/Login/SignupComponent';
+import NotFound from 'components/NotFound/NotFound';
+import Dashboard from 'components/dashboard/Dashboard';
+import ProtectedRoutes from './protected/ProtectedRoutes';
+import PublicRoutes from './public/PublicRoutes';
+import HomeComponent from 'components/dashboard/home/HomeComponent';
+import ProductForm from 'components/dashboard/product/product-form/ProductForm';
+import ProductView from 'components/dashboard/product/product-view/ProductView';
+import ProductSearchComponent from 'components/dashboard/product/product=search/ProductSearchComponent';
+
 const Routes = () => {
   return (
-      <>
-      <Header/>  
+    <>
+      {/* <Header isLoggedin={isLoggedin}></Header> */}
       <Switch>
-        <Route exact path="/">
-          <h1>
-            Home page Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Explicabo aut, ducimus ipsum nesciunt commodi corrupti, fugiat
-            eveniet facilis distinctio reiciendis dolorum eius odit vero nam
-            consequuntur accusantium maiores nostrum repudiandae!
-          </h1>
-        </Route>
-        <Route path ='/login' component = {LoginComponent}/>
-        <Route path ='/signup' component = {SignupComponent}/>
-        <Route path="/about">
-          <h1> About</h1>
-        </Route>
-        <Redirect to="/" />
+        <PublicRoutes exact path="/" component = {HomeComponent}/>
+        <PublicRoutes path="/login" component={LoginComponent} />
+        <PublicRoutes path="/signup" component={SignupComponent} />
+        <ProtectedRoutes path ='/dashboard' component = {Dashboard}/>
+        <ProtectedRoutes path ='/add-product/:id' component = {ProductForm}/>
+        <ProtectedRoutes path ='/add-product' component = {ProductForm}/>
+        <ProtectedRoutes path ='/my-products' component = {ProductView}/>
+        <PublicRoutes path = '/products/search/:category?/:subCategory?' component = {ProductSearchComponent}/>
+        <PublicRoutes component={NotFound} />
       </Switch>
-      </>
+      
+    </>
   );
 };
 

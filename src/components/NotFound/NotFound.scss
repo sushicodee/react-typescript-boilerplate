@@ -4,5 +4,10 @@
     justify-content: center;
     align-content: center;
     background-color:$primary-color;
-    height: 100vh;
+    // height: calc( 100vh - $header-height );
+
+    h3{
+        position: absolute;
+        margin-top:50vh;
+    }
 }

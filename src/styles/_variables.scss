@@ -1,6 +1,23 @@
 $primary-color:rgba(0, 0, 0, 0.89);
 $secondary-color:rgba(255, 255, 255, 0.897);
+$orange:#ff8100;
+$orangeh:#ff4000;
+$green:#329932;
+$greenh:#198c19;
+$red:#ff3232;
+$redh:#ff0000;
+$blueh:rgba(0, 110, 255, 0.87);
+$white:rgba(255, 255, 255, 0.856);
+$abs-white:white;
+
+// header
+$header-height:64px;
+
+//sidebar
 $sidebar-width:250px;
+
+
+$error-color:rgb(231, 17, 17);
 
 $font-weights:(
     "regular":400,

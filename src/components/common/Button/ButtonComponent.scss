@@ -1,0 +1,48 @@
+@import './../../../styles/variables';
+.btn{
+}
+
+.btn-edit{
+    background-color:$orange;
+    color:$white;
+
+    &-round{
+        border-radius:50%
+    }
+
+    &:hover{
+       background-color:$orangeh;
+       color:$abs-white; 
+    }
+
+}
+
+.btn-add{
+    background-color:$green;
+    color:$white;
+
+    &-round{
+        border-radius:50%
+    }
+
+    &:hover{
+       background-color:$greenh;
+       color:$abs-white; 
+    }
+
+}
+
+.btn-delete{
+    background-color:$red;
+    color:$white;
+
+    &-round{
+        border-radius:50%
+    }
+
+    &:hover{
+       background-color:$redh;
+       color:$abs-white; 
+    }
+
+}
