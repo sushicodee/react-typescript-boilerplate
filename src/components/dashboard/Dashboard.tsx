@@ -15,12 +15,11 @@ interface IState {
 export default class Dashboard extends Component<IProps,IState> {
 
     componentDidMount(){
-        console.log(this.props.match.params.name,getItem('token'),getItem('user'))
     }
     render() {
         return (
             <div>
-                hello from dash
+                hello from dashboard
             </div>
         )
     }

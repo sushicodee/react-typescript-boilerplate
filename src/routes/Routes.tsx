@@ -8,8 +8,10 @@ import ProtectedRoutes from './protected/ProtectedRoutes';
 import PublicRoutes from './public/PublicRoutes';
 import HomeComponent from 'components/dashboard/home/HomeComponent';
 import ProductForm from 'components/dashboard/product/product-form/ProductForm';
+import ProfileForm from 'components/dashboard/profile/profile-form/ProfileForm';
 import ProductView from 'components/dashboard/product/product-view/ProductView';
 import ProductSearchComponent from 'components/dashboard/product/product=search/ProductSearchComponent';
+import MessageComponent from 'components/dashboard/messages/MessageComponent';
 
 const Routes = () => {
   return (
@@ -23,6 +25,8 @@ const Routes = () => {
         <ProtectedRoutes path ='/add-product/:id' component = {ProductForm}/>
         <ProtectedRoutes path ='/add-product' component = {ProductForm}/>
         <ProtectedRoutes path ='/my-products' component = {ProductView}/>
+        <ProtectedRoutes path ='/messages' component = {MessageComponent}/>
+        <ProtectedRoutes path ='/profile' component = {ProfileForm}/>
         <PublicRoutes path = '/products/search/:category?/:subCategory?' component = {ProductSearchComponent}/>
         <PublicRoutes component={NotFound} />
       </Switch>

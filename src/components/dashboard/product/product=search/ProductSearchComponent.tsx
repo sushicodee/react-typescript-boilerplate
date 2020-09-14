@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Snackbar from 'components/utils/notification/Snackbar';
 import { Grid } from '@material-ui/core';
 import ProductCard from 'components/common/Cards/product/ProductCard';
-
+import './ProductSearchComponent.scss'
 function ProductSearchComponent() {
     const params = useParams();
     const [data, setdata] = useState([]);
@@ -31,7 +31,7 @@ function ProductSearchComponent() {
 
     return (
         <div>
-            <Grid container spacing = {3} style ={{margin:'auto'}}>
+            <Grid container spacing = {3} className = 'product-container'>
                 {data && data.map((product:any) => 
                 <Grid item key ={product._id}  xs ={12} sm ={6} md={4} lg ={3} xl={2}>
                     <ProductCard data = {product}/>

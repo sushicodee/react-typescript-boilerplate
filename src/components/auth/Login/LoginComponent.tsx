@@ -167,7 +167,6 @@ export class LoginComponent extends Component<IProps, IState> {
       () => {
         axiosApi.post('/auth/login',this.state.data,{},true)
         .then((data:any) => {
-          console.log(data);
             snack.showSuccess(`${data.user.username} logged in Successfully`)
             setItem('token',data.token) 
             setItem('user',JSON.stringify(data.user))

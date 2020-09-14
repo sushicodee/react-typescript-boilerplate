@@ -3,7 +3,7 @@
 .header-container {
     display: flex;
     justify-content: space-between;
-    background-color:$primary-color;
+    background-color:$purple;
     color:$secondary-color;
 
     .menu-button{
@@ -18,3 +18,15 @@ a{
     padding: 0 16px;
 
 }
+
+.search-container{
+}
+
+.logo{
+    display: flex;
+}
+
+.options-tray{
+    display:flex;
+}
+

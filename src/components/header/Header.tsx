@@ -23,6 +23,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Snackbar from 'components/utils/notification/Snackbar';
 import { axiosApi } from 'api/axios/axiosApi';
+import Notification from './notification/NotificationComponent';
+import Profile from './profile/Profile';
 // import {ArrowBack} from '@material-ui/icons';
 
 interface IHeaderLink {
@@ -102,7 +104,7 @@ const Header: React.FC<IProps> = (props) => {
     { name:'divider', path:'',iconName:''},
     { name: 'Add Product', path: '/add-product', iconName: 'add' },
     { name: 'My Store', path: '/my-products', iconName: 'store'},
-
+    { name: 'Messages', path: '/messages', iconName: 'chat'},
   ];
 
   useEffect(() => {
@@ -127,10 +129,7 @@ const Header: React.FC<IProps> = (props) => {
       });
   };
 
-  const handleLogout = () => {
-    clearStorage()
-    history.push('/login');
-  }
+ 
 
   return (
     <>
@@ -158,9 +157,12 @@ const Header: React.FC<IProps> = (props) => {
                 <MenuIcon />
               </IconButton>
             )}
+            <div className = 'logo'>
             <Typography variant="h6" className="title">
               ShOp
             </Typography>
+            </div>
+            <div className = 'search-container'>
             <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -173,6 +175,7 @@ const Header: React.FC<IProps> = (props) => {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
+            </div>
           </div>
             {!isLoggedin ? (
               <Grid className = 'default-header-auth'>
@@ -185,12 +188,10 @@ const Header: React.FC<IProps> = (props) => {
 
               </Grid>
             ) : (
-                <Button
-                  onClick={handleLogout}
-                  color="inherit"
-                >
-                  Logout
-                </Button>
+              <div className = 'options-tray'>
+                <Notification/>
+                <Profile/>
+              </div>
             )}
           </>
         </Toolbar>

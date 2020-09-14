@@ -60,22 +60,30 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
     setdata(data);
     setTouched(defaultTouch);
     setErrors(error);
-    if (params.id) {
-      axiosApi
-        .post(`${url}/search/`, { _id: params.id })
-        .then((response) => {
-          if (response.length) {
-            setdata({ ...data, ...response[0] });
-            return;
-          }
-          setdata(data);
-        })
-        .catch((err) => {
-          snack.handleError('unable to fetch data');
-          setdata(data);
-        });
+    if(formName === 'Product'){
+      if (params.id) {
+        axiosApi
+          .post(`${url}/search/`, { _id: params.id })
+          .then((response) => {
+            if (response.length) {
+              setdata({ ...data, ...response[0] });
+              return;
+            }
+            setdata(data);
+          })
+          .catch((err) => {
+            snack.handleError('unable to fetch data');
+            setdata(data);
+          });
+      }
     }
   }, [params.id]);
+
+  useEffect(() => {
+    if(formName === 'Profile'){
+
+    }
+  }, [])
 
   const defaultDerived = (state) => {
     const newState = {};
@@ -118,7 +126,6 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
     }
 
     setdata((predata) => ({ ...predata, [name]: value }));
-    console.log('handleChange',data)
     // let errors = validateProductForm(name,this.state);
     // setErrors(preError => ({...preError,errors}))
     form.forEach((item) => {
@@ -131,7 +138,6 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger;
     // setOptions((pre) => ({ ...pre, isSubmitting: true }));
     if (data._id) {
       update();
@@ -222,7 +228,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
         <form
           className={classes.form + ' ' + formclass}
           noValidate
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={handleSubmit}
         >
           <Grid container spacing={2}>
             {form.map((field, index) =>
