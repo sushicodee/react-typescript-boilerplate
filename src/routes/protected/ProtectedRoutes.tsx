@@ -1,17 +1,17 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Header from 'components/header/Header';
-import { getItem } from 'components/utils/localStorage/LocalStorage';
+import {connect} from 'react-redux';
 
 const ProtectedRoutes = ({ component: Component, ...props }) => {
-  const isLoggedIn = getItem('token') ? true:false
+  const { isAuthorised,isLoggedin} = props.auth;
   return (
     <Route
       {...props}
       render={(props) => {
-        return <>{isLoggedIn ? (
+        return <>{isLoggedin ? (
             <>
-            <Header isLoggedin = {isLoggedIn}/>
+            <Header isLoggedin = {isLoggedin}/>
             <div className = 'core-app-wrapper'>
               <Component {...props}/>
             </div>
@@ -24,5 +24,9 @@ const ProtectedRoutes = ({ component: Component, ...props }) => {
   );
 };
 
-export default ProtectedRoutes;
+const mapStateToProps = (state) =>({
+  auth:state.auth
+})
+
+export default connect(mapStateToProps)(ProtectedRoutes);
 //todo  pass location of past page 

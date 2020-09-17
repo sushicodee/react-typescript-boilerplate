@@ -14,7 +14,7 @@ import SelectComponent from '../Select/SelectComponent';
 import { useHistory, useParams } from 'react-router-dom';
 import utils from 'components/utils/utils';
 import { getItem } from 'components/utils/localStorage/LocalStorage';
-import { MTableEditField } from 'material-table';
+import {connect} from 'react-redux';
 
 const useStyles = () =>
   makeStyles({
@@ -37,7 +37,7 @@ const useStyles = () =>
     },
   });
 
-const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
+const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
   const history = useHistory();
   const params = useParams();
   const classes = useStyles();
@@ -50,17 +50,18 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
     isError: false,
     isValid: false,
   });
-  const title = params.id ? `Edit ${formName}` : 'Add' + ' ' + formName;
+  const [title,setTitle] = useState('');
 
   useEffect(() => {
     const defaultTouch = defaultDerived('touched');
     const error = defaultDerived('error');
     const data = defaultDerived('data');
-
     setdata(data);
     setTouched(defaultTouch);
     setErrors(error);
     if(formName === 'Product'){
+      let title = params.id ? `Edit ${formName}` : 'Add' + ' ' + formName;
+      setTitle(title);
       if (params.id) {
         axiosApi
           .post(`${url}/search/`, { _id: params.id })
@@ -70,6 +71,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
               return;
             }
             setdata(data);
+
           })
           .catch((err) => {
             snack.handleError('unable to fetch data');
@@ -80,10 +82,30 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
   }, [params.id]);
 
   useEffect(() => {
+    const defaultTouch = defaultDerived('touched');
+    const error = defaultDerived('error');
+    const data = defaultDerived('data');
+    setdata(data);
+    setTouched(defaultTouch);
+    setErrors(error);
     if(formName === 'Profile'){
-
+      let title = `Update ${formName}`
+      setTitle(title);
+      axiosApi
+      .get(`${url}/${auth.user._id}`,{},auth.isAuthorized)
+      .then((response) => {
+          if(response.address){
+          response.temp_address = response['address']['temp_address'] &&  response['address']['temp_address'].join(',') || ''
+          response.permanent_address = response['address']['permanent_address'] &&  response['address']['permanent_address'] || ''
+        }
+        setdata({ ...data, ...response});
+      })
+      .catch((err) => {
+        snack.handleError('unable to fetch data');
+        setdata(data);
+      });
     }
-  }, [])
+  }, [auth.user._id])
 
   const defaultDerived = (state) => {
     const newState = {};
@@ -100,7 +122,8 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
           newState[item.key] = false;
         } else if (item.type === 'number') {
           newState[item.key] = 0;
-        } else {
+        }
+        else {
           newState[item.key] = '';
         }
       });
@@ -147,6 +170,14 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
       add();
     }
   };
+  const handleRedirect = () => {
+    if(formName === 'Profile'){
+      return;
+    }
+    if(formName === 'Product'){
+      history.push('/my-products');
+    }
+  }
 
   const update = () => {
     const files = data.newimage;
@@ -162,9 +193,9 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
         files,
       )
       .then((data) => {
-        snack.showSuccess('Product edited successfully');
+        snack.showSuccess(`${formName} updated successfully`);
         setOptions((prev) => ({ ...prev, isSubmitting: false }));
-        history.push('/my-products');
+        handleRedirect();
       })
       .catch((err) => {
         snack.handleError(err);
@@ -185,9 +216,9 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
           files,
         )
         .then((data) => {
-          snack.showSuccess('Product added successfully');
+          snack.showSuccess(`${formName} added successfully`);
           setOptions((prev) => ({ ...prev, isSubmitting: false }));
-          history.push('/my-products');
+          handleRedirect();
         })
         .catch((err) => {
           console.log(err);
@@ -196,11 +227,12 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
         });
     } else {
       axiosApi
-        .post('/product', data, {}, true)
+        .post(url, data, {}, true)
         .then((data) => {
-          snack.showSuccess('Product added successfully');
+          snack.showSuccess(`${formName} added successfully`);
           setOptions((prev) => ({ ...prev, isSubmitting: false }));
-          history.push('/my-products');
+          handleRedirect();
+         
         })
         .catch((err) => {
           console.log(err);
@@ -245,10 +277,10 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
                 />
               ) : field.type === 'file' ? (
                 <FileUploadButton
-                  key={index}
-                  name={data._id ? 'newimage' : field.key}
+                  key={field.key + '-' +index}
+                  name={data._id && !data.image ? 'newimage' : field.key}
                   label={data._id ? 'Update Photo' : field.label}
-                  value={data._id ? data['newimage'] : data[field.key]}
+                  value={data._id && !data.image ? data['newimage'] : data[field.key]}
                   error={data._id ? errors['newimage'] : errors[field.key]}
                   props={field.props}
                   handlechange={handleChange}
@@ -295,4 +327,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle }) => {
   );
 };
 
-export default FormBuilder;
+const mapStateToProps = state => ({
+  auth:state.auth
+})
+export default connect(mapStateToProps)(FormBuilder)

@@ -3,7 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import { Typography } from '@material-ui/core';
+import './FileUploadButton.scss'
+import { Icon, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,8 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const FileUploadButton = ({name,label,value,props, handlechange,error }) => {
   const classes = useStyles();
+  const imageUrl = process.env.REACT_APP_IMAGE_URL;
+
+  React.useEffect(() => {
+    console.log(name,label,value,props)
+  }, [])
+
   return (
-    <div className={classes.root} key={name}>
+    <div className={classes.root +' '+'upload-button-wrapper'} key={name}>
       <input
         name={name}
         accept="image/*"
@@ -33,7 +40,13 @@ const FileUploadButton = ({name,label,value,props, handlechange,error }) => {
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained" color="primary" component="span">
-          {label}
+          <Icon>
+             add
+          </Icon>
+          {value &&
+          <img className = {`image-overlay ${props.round ?'image-overlay-round':null}`} src = {`${imageUrl}/${value}`}>
+          </img>
+        }
         </Button>
       </label>
       <input
@@ -42,9 +55,10 @@ const FileUploadButton = ({name,label,value,props, handlechange,error }) => {
         id="icon-button-file"
         type="file"
       />
-      <Typography className = 'photo-info' variant = 'caption'>
-        {value ? typeof value === 'string'? value :value[0].name:'No Photo selected' }
-      </Typography>
+      
+      {!props.round && <Typography className = 'photo-info' variant = 'caption'>
+        {value ? typeof value === 'string'? value.split('-')[1] :value[0].name:'No Photo selected' }
+      </Typography>}
       {/* <label htmlFor="icon-button-file">
         <IconButton
           color="primary"

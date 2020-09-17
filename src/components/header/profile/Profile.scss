@@ -2,11 +2,15 @@
 
 .profile-icon{
         .material-icons{
-            background-color:$white;
+            // background-color:$white;
         }
 }
 
 .profile-list{
+    width:150px;
+        li{
+            padding:0 20px;
+        }
 }
 
 .MuiButton-textPrimary{

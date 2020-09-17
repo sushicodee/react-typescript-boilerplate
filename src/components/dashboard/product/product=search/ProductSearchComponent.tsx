@@ -34,7 +34,7 @@ function ProductSearchComponent() {
             <Grid container spacing = {3} className = 'product-container'>
                 {data && data.map((product:any) => 
                 <Grid item key ={product._id}  xs ={12} sm ={6} md={4} lg ={3} xl={2}>
-                    <ProductCard data = {product}/>
+                    {/* <ProductCard data = {product}/> */}
                 </Grid>
                 )
                 }

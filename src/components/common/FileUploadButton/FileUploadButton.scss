@@ -1,0 +1,51 @@
+@import './../../../styles/variables';
+
+.upload-button-wrapper{
+    display:flex;
+    flex-direction: column;
+    .MuiButton-contained {
+        background-color: $transparent;
+        &:hover{
+            background-color: $btn-grey;
+        }
+    }
+    span{
+        margin:auto;
+        width:100px;
+        height:100px;
+       
+        .image-overlay{
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100px;
+            object-fit: cover;
+            &-round{
+                border-radius: 50%;
+            }
+        }
+        
+    }
+    .MuiButton-label{
+        height:100px;
+        color: $white;
+        .material-icons{
+            position: absolute;
+            right:0;
+            z-index: 5;
+        }
+        &:hover{
+            .material-icons{
+                color:white;
+            }
+            label{
+                display: flex;
+                justify-self: center;
+                align-self:center;
+            }
+        }
+    }
+
+
+}

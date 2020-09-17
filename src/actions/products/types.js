@@ -1,0 +1,9 @@
+export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
+export const SET_IS_LOADING = 'SET_IS_LOADING';
+export const NEW_PRODUCT = 'NEW_PRODUCT';
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const EDIT_PRODUCT = 'EDIT_PRODUCT';
+export const SET_PAGE_NUMBER = 'SET_PAGE_NUMBER';
+
+
+

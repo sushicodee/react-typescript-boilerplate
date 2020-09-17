@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -14,12 +14,18 @@ import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import Copyright from './../../copyright/Copyright';
 import { validateForm } from './validation/LoginValidation';
-import './LoginComponent.scss'
-import {IErrorState,IOptionsState} from './../interfaces/Interfaces'
-import { setItem, removeItem, getItem } from 'components/utils/localStorage/LocalStorage';
+import './LoginComponent.scss';
+import { IErrorState, IOptionsState } from './../interfaces/Interfaces';
+import {
+  setItem,
+  removeItem,
+  getItem,
+} from 'components/utils/localStorage/LocalStorage';
 import { axiosApi } from 'api/axios/axiosApi';
 import snack from './../../utils/notification/Snackbar';
-// import axios from 'axios'
+import { connect } from 'react-redux';
+import { login } from './../../../actions/user/authActions';
+
 const useStyles: any = () => ({
   paper: {
     marginTop: '128px',
@@ -45,15 +51,17 @@ const useStyles: any = () => ({
 });
 interface IProps {
   classes: any;
-  history:any;
-  location:any;
-  snack:{
-    message:string;
-    varient:string;
-    timeout:number;
-    open:boolean;
-  }
-  match:any;
+  history: any;
+  location: any;
+  snack: {
+    message: string;
+    varient: string;
+    timeout: number;
+    open: boolean;
+  };
+  match: any;
+  loginUser: (data: IDataState) => any;
+  auth: any;
 }
 
 interface IDataState {
@@ -64,147 +72,144 @@ interface IState {
   errors: IErrorState;
   data: IDataState;
   options: IOptionsState;
-  touched:ITouchState
+  touched: ITouchState;
 }
 
 interface ITouchState {
-  username:boolean;
-  password:boolean;
+  username: boolean;
+  password: boolean;
 }
-export class LoginComponent extends Component<IProps, IState> {
-
+export class Login extends Component<IProps, IState> {
   state: IState = {
     data: {
       username: '',
       password: '',
     },
     errors: {
-      errorMessage:{},
+      errorMessage: {},
       isError: false,
     },
     options: {
       rememberMe: false,
       isSubmitting: false,
     },
-    touched:{
-      username:false,
-      password:false,
-    }
+    touched: {
+      username: false,
+      password: false,
+    },
   };
 
   componentDidMount() {
+    const {auth:{isLoggedin,isAuthorized},history} = this.props;
+    if(isLoggedin && isAuthorized){
+      history.push('/');
+    }
     const username = getItem('username') || '';
-    const rememberMe = getItem('rememberMe') === 'true'?true:false;
-    if(rememberMe && username){
-        this.setState(prevState => ({
-          ...prevState,
-          data:{...prevState.data,
-          username},
-          options:{
-            ...prevState.options,
-            rememberMe,
-          }
-      }))
+    const rememberMe = getItem('rememberMe') === 'true' ? true : false;
+    if (rememberMe && username) {
+      this.setState((prevState) => ({
+        ...prevState,
+        data: { ...prevState.data, username },
+        options: {
+          ...prevState.options,
+          rememberMe,
+        },
+      }));
     }
   }
 
+
   handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     //remember me
-    const { name, value,checked }: any = e.target;
-    if(name === 'rememberMe'){
-      this.setState(prevState => ({
-        ...prevState,
-        options:{
-          ...prevState.options,
-          [name]:checked
-        },
-      }),() => {
-        if(this.state.options.rememberMe){
-          setItem('rememberMe',this.state.options.rememberMe);
-          if(this.state.data.username){
-            setItem('username',this.state.data.username);
+    const { name, value, checked }: any = e.target;
+    if (name === 'rememberMe') {
+      this.setState(
+        (prevState) => ({
+          ...prevState,
+          options: {
+            ...prevState.options,
+            [name]: checked,
+          },
+        }),
+        () => {
+          if (this.state.options.rememberMe) {
+            setItem('rememberMe', this.state.options.rememberMe);
+            if (this.state.data.username) {
+              setItem('username', this.state.data.username);
+            }
+            return;
           }
-          return;
-        }
-        removeItem('username');
-        removeItem('rememberMe');
-      })
+          removeItem('username');
+          removeItem('rememberMe');
+        },
+      );
       return;
     }
-    
+
     this.setState(
       (prevState) => ({
         ...prevState,
         data: { ...prevState.data, [name]: value },
       }),
       () => {
-        let errors = validateForm(name,this.state,{form:'login'});
-        this.setState(prevState => ({
+        let errors = validateForm(name, this.state, { form: 'login' });
+        this.setState((prevState) => ({
           ...prevState,
-          errors:{
+          errors: {
             ...prevState.errors,
-            errorMessage:{...errors.errorMessage,'loginError':''},
-            isError:errors.isError
+            errorMessage: { ...errors.errorMessage, loginError: '' },
+            isError: errors.isError,
           },
-          touched: { ...prevState.touched,
-            [name]: true }
-        }))
+          touched: { ...prevState.touched, [name]: true },
+        }));
       },
     );
   };
 
-  handleSubmit = (e) => {
+  handleSubmit =  (e) => {
     e.preventDefault();
-    const {history} = this.props;
+    const { history } = this.props;
     this.setState(
       (prevState) => ({
         ...prevState,
-        options:{
+        options: {
           ...prevState.options,
-          isSubmitting: true
-        }   
+          isSubmitting: true,
+        },
       }),
-      () => {
-        axiosApi.post('/auth/login',this.state.data,{},true)
-        .then((data:any) => {
-            snack.showSuccess(`${data.user.username} logged in Successfully`)
-            setItem('token',data.token) 
-            setItem('user',JSON.stringify(data.user))
-            setTimeout(() => {
-              history.push(`/dashboard`)
-            },1000)
-            
-      })
-      .catch(err => {
-          snack.handleError(err.data.message);
-          this.setState({...this.state,
-            errors:{
-              ...this.state.errors,
-              errorMessage:{
-                ...this.state.errors.errorMessage,
-                'loginError':err.data.message}}})
-      })
-      .finally(() => {
-        this.setState({
-          ...this.state,
-          options:{...this.state.options,isSubmitting:false}})     
-      })  
-      },
+        () => {
+          this.props.loginUser(this.state.data)
+          .then(data => {
+                history.push(`/dashboard`)
+          })
+          .catch(err =>{
+            this.setState({...this.state,
+                    errors:{
+                      ...this.state.errors,
+                      errorMessage:{
+                        ...this.state.errors.errorMessage,
+                        'loginError':this.props.auth.errorMessage}}})
+          })
+        }
     );
   };
 
   render() {
     const { classes } = this.props;
     const {
-      options: { isSubmitting, rememberMe },
-      errors: { isError,errorMessage},
-      touched
+      options: { rememberMe },
+      errors: { isError, errorMessage },
+      // errors: { isError},
+      touched,
     } = this.state;
+    const { isSubmitting } = this.props.auth;
     const submitButtonClass = isSubmitting
       ? classes.submitting
       : classes.submit;
-    const errorClass = isError?'-error':null
-    const isInvalid = isError || Object.values(touched).filter(data => data === false).length !== 0;
+    const errorClass = isError ? '-error' : null;
+    const isInvalid =
+      isError ||
+      Object.values(touched).filter((data) => data === false).length !== 0;
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -221,7 +226,9 @@ export class LoginComponent extends Component<IProps, IState> {
             onSubmit={this.handleSubmit}
           >
             <TextField
-              className = {`form-field form-field${errorMessage.username !== ''?'-error':null}`}
+              className={`form-field form-field${
+                errorMessage.username !== '' ? '-error' : null
+              }`}
               variant="outlined"
               margin="normal"
               required
@@ -232,11 +239,13 @@ export class LoginComponent extends Component<IProps, IState> {
               autoComplete="username"
               autoFocus
               onChange={(e: any) => this.handleChange(e)}
-              error = {errorMessage.username}
+              error={errorMessage.username}
             />
-            <Grid className = 'error-span'>{errorMessage.username && errorMessage.username}</Grid>
+            <Grid className="error-span">
+              {errorMessage.username && errorMessage.username}
+            </Grid>
             <TextField
-              className = {`form-field form-field${errorClass}`}
+              className={`form-field form-field${errorClass}`}
               variant="outlined"
               margin="normal"
               required
@@ -247,53 +256,58 @@ export class LoginComponent extends Component<IProps, IState> {
               id="password"
               autoComplete="current-password"
               onChange={(e: any) => this.handleChange(e)}
-              error = {errorMessage.password}
+              error={errorMessage.password}
             />
-            <Grid className = 'error-span'>{errorMessage.password} {errorMessage.loginError}</Grid>
+            <Grid className="error-span">
+              {errorMessage.password} {errorMessage.loginError}
+            </Grid>
             <FormControlLabel
               control={
-                <Checkbox 
-                name="rememberMe"
-                onChange = {(e:any) => this.handleChange(e)}
-                value="remember"
-                color="primary"
-                checked = {rememberMe}
-                  />}
+                <Checkbox
+                  name="rememberMe"
+                  onChange={(e: any) => this.handleChange(e)}
+                  value="remember"
+                  color="primary"
+                  checked={rememberMe}
+                />
+              }
               label="Remember me"
             />
-            {isSubmitting ?
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              className={submitButtonClass}
-              disabled={isSubmitting}>
-              Logging in...
-            </Button>
-            :<Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={submitButtonClass}
-              disabled={isInvalid}
-            >
-               Sign In
-            </Button>
-            }
+            {isSubmitting ? (
+              <Button
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={submitButtonClass}
+                disabled={isSubmitting}
+              >
+                Logging in...
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={submitButtonClass}
+                disabled={isInvalid}
+              >
+                Sign In
+              </Button>
+            )}
             <Grid container>
               <Grid item xs>
                 <Link to="/forgot">
-                <Typography variant ="body2" id='forgot-link'>
-                  Forgot password?
-                </Typography>
+                  <Typography variant="body2" id="forgot-link">
+                    Forgot password?
+                  </Typography>
                 </Link>
               </Grid>
               <Grid item>
                 <Link to="/signup">
-                <Typography variant ="body2" id='forgot-link'>
-                  {"Don't have an account? Sign Up"}
-                </Typography>
+                  <Typography variant="body2" id="forgot-link">
+                    {"Don't have an account? Sign Up"}
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>
@@ -306,5 +320,14 @@ export class LoginComponent extends Component<IProps, IState> {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+const mapDIspatchToProps = (dispatch) => ({
+  loginUser: (data) => dispatch(login(data)),
+});
 
-export default withStyles(useStyles)(LoginComponent);
+export const LoginComponent = connect(
+  mapStateToProps,
+  mapDIspatchToProps,
+)(withStyles(useStyles)(Login));

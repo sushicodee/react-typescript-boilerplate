@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
-import LoginComponent from 'components/auth/Login/LoginComponent';
+import {LoginComponent} from 'components/auth/Login/LoginComponent';
 import SignupComponent from 'components/auth/Login/SignupComponent';
 import NotFound from 'components/NotFound/NotFound';
 import Dashboard from 'components/dashboard/Dashboard';
@@ -9,7 +9,7 @@ import PublicRoutes from './public/PublicRoutes';
 import HomeComponent from 'components/dashboard/home/HomeComponent';
 import ProductForm from 'components/dashboard/product/product-form/ProductForm';
 import ProfileForm from 'components/dashboard/profile/profile-form/ProfileForm';
-import ProductView from 'components/dashboard/product/product-view/ProductView';
+import {ProductView} from 'components/dashboard/product/product-view/ProductView';
 import ProductSearchComponent from 'components/dashboard/product/product=search/ProductSearchComponent';
 import MessageComponent from 'components/dashboard/messages/MessageComponent';
 
@@ -30,7 +30,6 @@ const Routes = () => {
         <PublicRoutes path = '/products/search/:category?/:subCategory?' component = {ProductSearchComponent}/>
         <PublicRoutes component={NotFound} />
       </Switch>
-      
     </>
   );
 };

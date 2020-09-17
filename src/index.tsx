@@ -4,17 +4,14 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router} from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
-import { SnackbarProvider} from 'notistack';
 
 ReactDOM.render(
   // <React.StrictMode>
-    <Router>
+    // <Router>
       <StylesProvider injectFirst>
-      <SnackbarProvider maxSnack={3}>
         <App />
-      </SnackbarProvider>
-      </StylesProvider>
-    </Router>,
+      </StylesProvider>,
+    // </Router>,
   // </React.StrictMode>,
   document.getElementById('root'),
 );

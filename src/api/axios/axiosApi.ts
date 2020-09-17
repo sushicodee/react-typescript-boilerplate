@@ -73,15 +73,16 @@ const uploadFile = (method,url,data,files) => {
     return new Promise((resolve,reject) => {
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
-        console.log(files,'over here')
         if(files && files.length){
             formData.append('image',files[0],files[0].name);
         }
     
         for (let key in data){
+            if(typeof data[key] === 'object'){
+                continue;
+            }
             formData.append(key,data[key]);
         }
-        console.log(formData)
         xhr.onreadystatechange = () => {
             if(xhr.readyState === 4){
                 console.log('req cycle compoleted',xhr.response);

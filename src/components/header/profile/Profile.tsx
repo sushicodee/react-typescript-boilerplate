@@ -7,10 +7,10 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import * as io from 'socket.io-client';
-import { Icon, Avatar } from '@material-ui/core';
-import { clearStorage } from 'components/utils/localStorage/LocalStorage';
+import { Icon, Avatar, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {logout} from './../../../actions/user/authActions';
 import './Profile.scss'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,23 +21,39 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       marginRight: theme.spacing(2),
     },
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
   }),
 );
 
-export default function Profile() {
+ const Profile = (props) => {
   const history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const [isConnected, setConnected] = React.useState(false);
+  const imageSrc = process.env.REACT_IMAGE_URL;
+  React.useEffect(() => {
+    console.log(props.auth)
+  }, [])
+  
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
+  const handleProfile = () => {
+    history.push('/profile')
+  }
   const handleLogout = () => {
-    clearStorage();
+    props.logout();
     history.push('/login');
   };
+
+  const handleSettings = () => {
+    history.push('/settings')
+  }
 
   const handleClose = (event: React.MouseEvent<EventTarget>) => {
     if (
@@ -66,18 +82,6 @@ export default function Profile() {
 
     prevOpen.current = open;
   }, [open]);
-
-  //   React.useEffect(() => {
-  //     const socket = io(process.env.REACT_APP_SOCKET_URL);
-  //     socket.emit('connect', 'Profile requested from react');
-  //     socket.on('Profiles', (data) => {
-  //       setConnected(true);
-  //       console.log('res from server', data);
-  //     });
-  //     socket.on('connection', (data) => {
-  //       console.log(data);
-  //     });
-  // }, [process.env.REACT_APP_SOCKET_URL,isConnected]);
 
   return (
     <div className={classes.root}>
@@ -118,14 +122,23 @@ export default function Profile() {
                     {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
                     <MenuItem onClick={handleClose}>Logout</MenuItem> */}
-                    <MenuItem>
-                    <Avatar alt="Remy Sharp" src="" />
-                    <MenuItem>
+                    <MenuItem onClick = {handleProfile}>
+                    <Avatar className={classes.small} alt={props.auth.user.username} src={`${imageSrc}/${props.auth.user.image}`} />
+                    <Typography variant = 'subtitle2'>Profile</Typography>
                     </MenuItem>
-                    <Button onClick={handleLogout} color="inherit">
-                      Logout
-                    </Button>
+                    <MenuItem onClick={handleSettings}>
+                      <Icon>
+                        settings
+                      </Icon>
+                    <Typography variant = 'subtitle2'>Settings</Typography>
                     </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      <Icon>
+                        logout
+                      </Icon>
+                    <Typography variant = 'subtitle2'>Logout</Typography>
+                    </MenuItem>
+
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -136,3 +149,11 @@ export default function Profile() {
     </div>
   );
 }
+const mapStateToProps = state => ({
+  auth:state.auth
+})
+const mapDispatchToProps = dispatch => ({
+  logout:() => dispatch(logout()),
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Profile)

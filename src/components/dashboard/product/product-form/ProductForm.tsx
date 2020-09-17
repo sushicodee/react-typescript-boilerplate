@@ -5,6 +5,7 @@ interface IState {
 }
 const defaultForm = {
   productForm:[
+    {key:'image',label:'Upload Photo',type:'file', props:{multiple:false}},
     {key:'name',label:'Name',props:{required:true}},
     {key:'price',label:'Price',type:'number',props:{required:true ,currency:'Rs' }},
     {key:'category',label:'Category',props:{required:true}},
@@ -33,7 +34,6 @@ const defaultForm = {
     },
     {key:'offers',label:'Offer Name',props:{dependency:['discountedItem']}},
     {key:'offerDiscount',label:'Offer Discount',type:'number',props:{dependency:['discountedItem','offerDiscountType']}},
-    {key:'image',label:'Upload Photo',type:'file', props:{multiple:false}}
   ]
 };
 

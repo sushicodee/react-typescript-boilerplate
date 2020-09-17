@@ -28,7 +28,8 @@
 // }
 
 .core-app-wrapper {
-    padding-top:128px;
+    padding-top:$header-height;
+    height:calc(100vh - $header-height)
 }
 
 a{

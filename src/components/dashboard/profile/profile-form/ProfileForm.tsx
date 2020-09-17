@@ -5,12 +5,12 @@ interface IState {
 }
 const defaultForm = {
   profileForm:[
-    {key:'image',label:'Upload Photo',type:'file', props:{multiple:false}},
+    {key:'image',label:'Upload Photo',type:'file', props:{multiple:false,round:true}},
     {key:'username',label:'Shop Name',props:{}},
     {key:'description',label:'Description',props:{}},
     {key:'phone',label:'Phone',type:'number',props:{}},
-    {key:'temp_address',label:'Temporary Address',props:{}},
-    {key:'permanent_address',label:'Permanent Address',props:{}},
+    {key:'temp_address',label:'Temporary Address',props:{dependency:['address'],type:'array'}},
+    {key:'permanent_address',label:'Permanent Address',props:{dependency:['address']}},
     {key:'status',label:'Status',type:'select',props:{menuItems:[{key:'active',value:'active'},{key:'inactive',value:'inactive'}]}},
     {key:'gender',label:'Gender',type:'select',props:{menuItems:[{key:'male',value:'male'},{key:'female',value:'female'},{key:'others',value:'others'}]}},
   ]
@@ -22,7 +22,7 @@ class ProfileForm extends Component<IProps> {
     return (
       <>
         <FormBuilder
-          url ={'/profile'}
+          url ={'/user'}
           formName="Profile"
           className ={'edit'}
           buttonTitle={'Profile'}

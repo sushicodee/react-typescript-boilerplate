@@ -1,3 +1,11 @@
 // .MuiPaper-elevation2{
 //     width:100%;
 // }
+.material-table-wrapper{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    div{
+        margin:auto;
+    }
+}

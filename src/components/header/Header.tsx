@@ -17,7 +17,6 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles, Theme, fade, createStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import clsx from 'clsx';
-import { clearStorage } from 'components/utils/localStorage/LocalStorage';
 import ProductSearch from 'components/dashboard/product/product=search/ProductSearch';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
@@ -25,6 +24,7 @@ import Snackbar from 'components/utils/notification/Snackbar';
 import { axiosApi } from 'api/axios/axiosApi';
 import Notification from './notification/NotificationComponent';
 import Profile from './profile/Profile';
+import {connect} from 'react-redux';
 // import {ArrowBack} from '@material-ui/icons';
 
 interface IHeaderLink {
@@ -35,6 +35,7 @@ interface IHeaderLink {
 
 interface IProps {
   isLoggedin?: boolean;
+  logout:() => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -129,25 +130,11 @@ const Header: React.FC<IProps> = (props) => {
       });
   };
 
- 
-
   return (
     <>
       <AppBar className='header-wrapper'>
         <Toolbar className="header-container">
           <>
-            {/* {location.pathname !== "/" && (
-                <IconButton
-                  id="back-button"
-                  edge="start"
-                  onClick={() => {
-                    return history.push("/");
-                  }}
-                  aria-label={'/'}
-                  >
-                  <ArrowBack fontSize="large" />
-                </IconButton>
-                )} */}
             {isLoggedin && (
               <IconButton
                 edge="start"
@@ -204,13 +191,7 @@ const Header: React.FC<IProps> = (props) => {
           })}
           role="presentation"
         >
-          {/* <IconButton
-          edge="start"
-          onClick={() => settoggle((cur: boolean) => !cur)}
-          className="menu-button"
-        >
-          <MenuIcon />
-        </IconButton> */}
+      
           <SwipeableDrawer
             className={classes.fullList+' '+'navbar-wrapper'}
             anchor={'left'}
@@ -240,5 +221,8 @@ const Header: React.FC<IProps> = (props) => {
     </>
   );
 };
+const mapDispatchToProps = dispatch => ({
+ 
+})
 
-export default Header;
+export default connect(null,mapDispatchToProps)(Header)

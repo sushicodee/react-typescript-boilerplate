@@ -1,7 +1,6 @@
 import React , {useEffect,useState} from 'react'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { isArray } from 'util';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import './InputComponent.scss';
 function InputComponent({ type,name,label,error,handlechange,data,props}) {
@@ -14,13 +13,14 @@ function InputComponent({ type,name,label,error,handlechange,data,props}) {
     }
 
     useEffect(() => {
-        if(isArray(props.dependency)){
+        if(Array.isArray(props.dependency)){
                 setdisplay(data[props.dependency[0]])
         }
         if(props.currency){
             setCurrency(props.currency)
         }
     }, [data])
+
     return (
         <>
         <Grid item xs ={12} sm ={6} md ={4} key={name}>
@@ -42,7 +42,7 @@ function InputComponent({ type,name,label,error,handlechange,data,props}) {
               }}
               InputProps={currency? {...inputProps}:{}
               }
-              value={data[name] || ''}
+              value={data[name] ||''}
             />
             <Grid className = 'error-span'>{error}</Grid>
         </Grid>

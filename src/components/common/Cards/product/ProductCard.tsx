@@ -19,7 +19,6 @@ const useStyles = makeStyles({
     // flexDirection: 'column',
     justifyContent: 'center',
     alignItems:'center',
-    width:'860px',
   },
 });
 
