@@ -23,7 +23,7 @@ function ProductViewComponent(props) {
           handlesubmit={() => history.push(`/add-product/${rowData._id}`)}
           color={'secondary'}
           classname={'btn-edit btn-edit-round'}
-          options={{ isSubmitting: false, icon: 'description' }}
+          options={{size:'medium',isSubmitting: false, icon: 'description',variantType:'contained' }}
           type="button"
           value="Detailed Edit"
         />

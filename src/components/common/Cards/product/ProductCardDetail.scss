@@ -1,0 +1,240 @@
+@import './../../../../styles/variables';
+.card-details-wrapper{
+    .title-label{
+        text-transform: uppercase;
+        text-align: left;
+    }
+    .product-image{
+        object-fit: cover;
+    }
+    
+    .product-stock{
+        color:$green;
+    }
+    
+    .card-background{
+        position: relative;
+        width:50%;
+        height:476px;
+        transform: scale(.9,.9);
+        // box-shadow: -15px 0 35px rgba(0, 0, 0, 0.1),
+        // 0 -15px 35px rgba(0, 0, 0, 0.1),
+        // 0 15px 35px rgba(0, 0, 0, 0.1);
+        // transition: .5s;
+    }
+    
+    .product-image{
+        position: absolute;
+        display:flex;
+        width:100%;
+        height:100%;
+        top:0;
+        left:0;
+        transform: scale(.8,.8);
+    }
+    .card-info{
+        background:$white;
+        width:50%;
+        padding:40px;
+        box-shadow: 15px 0 35px rgba(0,0,0,0.1),
+        0 -15px 35px rgba(0,0,0,0.1),
+        0 15px 35px rgba(0,0,0,0.1);
+        .card-name{
+            display: flex;
+            padding: 0 0 10px 0;
+        }
+        .card-description{
+            padding: 10px 0;
+        }
+        .color-container{
+            padding: 10px 0;
+           
+        }
+    }
+
+    .colors{
+        padding: 8px 0;
+        display: flex;
+        align-items: center;
+    }
+    .color{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin: 0 10px;
+        border: 5px solid;
+        cursor: pointer;
+        transition: .5s;
+    }
+
+    // .color[color="blue"]{
+    //     background-color: #2175f5;
+    //     border-color: #2175f5;
+    // }
+    
+    .color[color="red"]{
+        background-color: #f84848;
+        border-color: #f84848;
+    }
+    
+    // .color[color="green"]{
+    //     background-color: #29b864;
+    //     border-color: #29b864;
+    // }
+    
+    // .color[color="orange"]{
+    //     background-color: #ff5521;
+    //     border-color: #ff5521;
+    // }
+    
+    .color[color="black"]{
+        background-color: #444;
+        border-color: #444;
+    }
+
+    .color[color="rose-gold"]{
+        background-color: #f4e6e7;
+        border-color: #f4e6e7;
+    }
+
+    .color.active{
+        border-color: #fff;
+        box-shadow: 0 0 10px .5px rgba(0, 0, 0, 0.2);
+        transform: scale(1.1);
+    }
+
+    .size-container{
+        padding: 10px 0;
+        margin-bottom: 10px;
+    }
+    
+    .sizes{
+        padding: 8px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .size{
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        background-color: #eee;
+        margin: 0 10px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: .3s;
+    }
+    
+    .size.active{
+        background-color:$primary-color;
+        color: #fff;
+        transition: .5s;
+    }
+    .card-name .card-description .color-container .size-container{
+        border-bottom:1px solid $grey;
+    }
+    
+    .gradients{
+        position:absolute;
+        width:100%;
+        height:100%;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        z-index: 5;
+    }
+    
+    .gradient[color='blue']{
+        background-image:linear-gradient(45deg,#0136af,#22abfa);
+        height:100%;
+        width:100%;
+        z-index: 5;
+    }
+    
+    
+    // .gradient[color='red']{
+    //     background-image:linear-gradient(45deg,#d63036,#ce635f);
+    // }
+    // .gradient[color='green']{
+    //     background-image:linear-gradient(45deg,#11998e,#1ce669);
+    // }
+    // .gradient[color='orange']{
+    //     background-image:linear-gradient(45deg,#fc4a1a,#f7b733);
+    // }
+    
+    // .gradient[color='black']{
+    //     background-image:linear-gradient(45deg,#f111,#666);
+    // }
+    
+    .brand{
+        position: absolute;
+        width:100%;
+        padding:12px;
+        left:20px;
+        top:20px;
+        text-transform: uppercase;
+        line-height:.9;
+        color:$white;
+        border-radius: 5px;
+     }
+     
+      .love {
+          position: absolute;
+          width:60px;
+          height:60px;
+          right:20px;
+          bottom:20px;
+          border-radius: 50%;
+          background-color:rgba(14, 14, 14, 0.144);
+    
+          &:hover{
+            transform:scale(1.1);
+            background-color:rgba(255, 255, 255, 0.144);
+          }
+      }
+
+      .buy{
+        background-color:$primary-color;
+        color:$white;
+        &:hover{
+            transform:scale(1.1);
+            background-color:$greenh;
+            color:$abs-white;
+        }
+      }
+
+      .price{
+        color: #333;
+        display: flex;
+        align-items: flex-start;
+        
+        h6{
+                font-size: 1.4rem;
+                font-weight: 500;
+                line-height: 1.4;
+        }
+    }
+
+    .share{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: #fff;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.3rem;
+        text-decoration: none;
+        color: $primary-color;
+        transition: .5s;
+    }
+    
+    .share:hover{
+        transform: scale(1.1);
+    }
+}

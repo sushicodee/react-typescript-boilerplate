@@ -11,8 +11,9 @@ function PublicRoutes({ component: Component, ...props }) {
       render={(props) => (
         <>
           <Header isLoggedin={isLoggedin} />
-          <div style ={{marginTop:'128px'}}></div>
+          <div className = 'core-app-wrapper'>
           <Component {...props} />
+          </div>
         </>
       )}
     ></Route>

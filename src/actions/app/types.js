@@ -1,0 +1,2 @@
+export const SET_PROGRESS = 'SET_PROGRESS';
+export const TOGGLE_THEME = 'TOGGLE_THEME';

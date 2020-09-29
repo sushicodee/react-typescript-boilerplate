@@ -5,31 +5,33 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
 
-function ButtonComponent({type,color,handlesubmit,options = {isSubmitting:false,icon:''},classname,value}) {
+function ButtonComponent({type,color,handlesubmit,options:{size,isSubmitting = false,icon,variantType},classname,value}) {
   return (
     <>
     <Grid item xs = {6}>
-      {options.icon ?
+      {icon ?
         <IconButton aria-label="edit"
         className={classname ||'btn'}
-        disabled={options.isSubmitting}
+        disabled={isSubmitting  }
         onClick = {handlesubmit}
         >
           <Icon>
-            {options.icon}
+            {icon}
           </Icon>
         </IconButton>
         :
       <Button
         type = {type ||'submit'}
         // fullWidth
-        variant={'contained'}
+        variant={variantType || 'contained'}
         color={'secondary'}
         className={classname ||'button-default'}
-        disabled={options.isSubmitting}
+        disabled={isSubmitting }
         onClick = {handlesubmit}
+        size = {size}
+
       >
-        {options.isSubmitting?'Submitting':value === 'Edit Product'?'Confirm Edit Product':value}
+        {isSubmitting ?'Submitting':value === 'Edit Product'?'Confirm Edit Product':value}
       </Button>
       }
     </Grid>

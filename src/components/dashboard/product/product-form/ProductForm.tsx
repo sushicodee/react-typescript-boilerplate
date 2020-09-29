@@ -12,7 +12,7 @@ const defaultForm = {
     {key:'subCategory',label:'Sub Category',props:{required:true}},
     {key:'sku',label:'Product ID',props:{}},
     {key:'brand',label:'Brand',props:{}},
-    {key:'color',label:'Color',props:{}},
+    {key:'color',label:'Select Colors', type:'array', props:{}},
     {key:'description',label:'Description',props:{}},
     {key:'status',label:'Status',type:'select',props:{
       menuItems:[{key:'avaliable',value:'avaliable'},{key:'out of stock',value:'out of stock'},{key:'booked',value:'booked'},{key:'sold',value:'sold'}]

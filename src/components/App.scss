@@ -1,5 +1,4 @@
-@import './../styles/variables';
-
+@import './../styles//main.scss';
 .header-links{
     // height: 100vh;
     // width:$sidebar-width;
@@ -27,13 +26,32 @@
 //     }
 // }
 
-.core-app-wrapper {
-    padding-top:$header-height;
-    height:calc(100vh - $header-height)
-}
+// .core-app-wrapper {
+//     padding-top:$header-height;
+//     // height:calc(100vh - $header-height)
+// }
 
 a{
     text-decoration:none;
 }
+.App{
+background-color:$bg;
+color:$white;
 
+h3 h4 h5 h6 {
+color:$white;
+}
+input{
+color:$white;
+}
+label{
+    color:$white;
+}
+}
+
+.arrows{
+    span{
+        color:$white;
+    }
+}
 

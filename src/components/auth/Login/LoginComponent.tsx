@@ -99,6 +99,7 @@ export class Login extends Component<IProps, IState> {
     },
   };
 
+
   componentDidMount() {
     const {auth:{isLoggedin,isAuthorized},history} = this.props;
     if(isLoggedin && isAuthorized){
@@ -145,7 +146,7 @@ export class Login extends Component<IProps, IState> {
       );
       return;
     }
-
+    console.log(name,value)
     this.setState(
       (prevState) => ({
         ...prevState,
@@ -211,6 +212,7 @@ export class Login extends Component<IProps, IState> {
       isError ||
       Object.values(touched).filter((data) => data === false).length !== 0;
     return (
+      //table
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>

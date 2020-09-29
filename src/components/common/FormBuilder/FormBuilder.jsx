@@ -15,6 +15,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import utils from 'components/utils/utils';
 import { getItem } from 'components/utils/localStorage/LocalStorage';
 import {connect} from 'react-redux';
+import ColorPicker from '../ColorPicker/ColorPicker';
 
 const useStyles = () =>
   makeStyles({
@@ -123,6 +124,9 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
         } else if (item.type === 'number') {
           newState[item.key] = 0;
         }
+        else if(item.type === 'array'){
+          newState[item.key] = []
+        }
         else {
           newState[item.key] = '';
         }
@@ -139,16 +143,21 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
     return newState;
   };
 
-  const handleChange = (e) => {
-    let { name, value, type, checked, files } = e.target;
+  const handleChange = (e,addData) => {
+    let {name, value, type, checked, files } = e.target;
+    console.log({addData})
     if (type === 'checkbox') {
       value = checked;
     }
     if (type === 'file') {
       value = files;
     }
+    if(type === 'array') {
+      value = [...addData];
+    }
 
     setdata((predata) => ({ ...predata, [name]: value }));
+    console.log(data)
     // let errors = validateProductForm(name,this.state);
     // setErrors(preError => ({...preError,errors}))
     form.forEach((item) => {
@@ -313,7 +322,16 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
                   data={data}
                   handlechange={handleChange}
                 />
-              ) : null,
+              ) : field.type === 'array' ? (
+                <ColorPicker
+                  key={field.key + '-' + index}
+                  name={field.key}
+                  label={field.label}
+                  value={data[field.key]}
+                  props={field.props}
+                  type={field.type}
+                  handlechange={handleChange}
+                />):null,
             )}
             <ButtonComponent
               classname={` btn btn-${className}`}

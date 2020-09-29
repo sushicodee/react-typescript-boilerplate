@@ -2,92 +2,165 @@
 .product-image{
     object-fit: cover;
 }
-
 .product-stock{
     color:$green;
 }
-
-.card-background{
+.card-wrapper{
     position: relative;
-    width:50%;
-    height:476px;
-    transform: scale(.9,.9);
+    width:100%;
+    background-color: $abs-white;
+    min-width: 295px;
+    min-height:476px;
+    background-color: $bg-grey;
     box-shadow: -15px 0 35px rgba(0,0,0,0.1),
-    0 -15px 35px rgba(0,0,0,0.1),
-    0 15px 35px rgba(0,0,0,0.1),
-}
+    0 -15px 35px rgba(0,0,0,0.1), 
+    0 15px 35px rgba(0,0,0,0.1);
+    
+    &:hover{
+        cursor: pointer;
+    }
 
+    .card-background{
+        position: absolute;
+        top:0;
+        left: 0;
+        right: 0;
+        height:346px;
+        // transform: scale(.9,.9);
+        box-shadow: -15px 0 35px rgba(0, 0, 0, 0.1),
+        0 -15px 35px rgba(0, 0, 0, 0.1),
+        0 15px 35px rgba(0, 0, 0, 0.1);
+        transition: .5s;
+    }
+}
 .product-image{
     position: absolute;
     display:flex;
     width:100%;
-    height:100%;
+    // height:100%;
+    height: inherit;
     top:0;
     left:0;
-    transform: scale(.8,.8);
 }
 .card-info{
-    width:50%;
+    position: absolute;
+    text-align: center;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    &-name{
+        h2{
+            font-size: 1.2em;
+            padding:10px 10px;
+        }
+        position: absolute;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        left: 0;
+        right:40px;
+        top:350px
+    }
+    .price-wrapper{
+        display: flex;
+        width: -webkit-fill-available;
+        justify-content: flex-end;
+    }
+    &-price{
+            display: flex;
+            top:369px;
+            right:0;
+            display: inline-block;
+            width: auto;
+            height: 38px;
+            background-color: $green;
+            -webkit-border-radius: 3px 4px 4px 3px;
+            -moz-border-radius: 3px 4px 4px 3px;
+            border-radius: 3px 4px 4px 3px;
+            
+            border-left: 1px solid $green;
+        
+            /* This makes room for the triangle */
+            margin-left: 19px;
+            position: relative;
+            color: $abs-white;
+            font-weight: 300;
+            font-size: 22px;
+            line-height: 38px;
+        
+            padding: 0 10px 0 10px;
+        
+            &:before {
+                content: "";
+                position: absolute;
+                display: block;
+                left: -19px;
+                width: 0;
+                height: 0;
+                border-top: 19px solid transparent;
+                border-bottom: 19px solid transparent;
+                border-right: 19px solid $green;
+            }
+            
+            /* Makes the circle */
+            &:after {
+                content: "";
+                background-color: $abs-white;
+                border-radius: $border-circle;
+                width: 10px;
+                height: 10px;
+                display: block;
+                position: absolute;
+                left: -1px;
+                top: 13px;
+            }
+    }
+    &-new{
+        bottom:5px;
+        color:$green;
+        padding:10px;
+        border:2px solid $green;
+        border-radius: 5px;
+        position: absolute;
+    }
 }
-
-.gradients{
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    z-index: 5;
-}
-
-.gradient[color='blue']{
-    background-image:linear-gradient(45deg,#0136af,#22abfa);
-    height:100%;
-    width:100%;
-    z-index: 5;
-}
-
-
-// .gradient[color='red']{
-//     background-image:linear-gradient(45deg,#d63036,#ce635f);
-// }
-// .gradient[color='green']{
-//     background-image:linear-gradient(45deg,#11998e,#1ce669);
-// }
-// .gradient[color='orange']{
-//     background-image:linear-gradient(45deg,#fc4a1a,#f7b733);
-// }
-
-// .gradient[color='black']{
-//     background-image:linear-gradient(45deg,#f111,#666);
-// }
-
 .brand{
     position: absolute;
     width:100%;
     padding:12px;
-    left:20px;
-    top:20px;
+    left:0px;
+    top:40px;
     text-transform: uppercase;
     line-height:.9;
-    color:$white;
     border-radius: 5px;
-    // opacity: .1;
+    z-index: 5;
+    opacity: .5;
  }
- 
+
+ .card-actions-wrapper{
+    position: absolute;
+    bottom: 0;
+    right:0;
+    display: flex;
   .love {
-      position: absolute;
-      width:60px;
-      height:60px;
-      right:20px;
-      bottom:20px;
-      border-radius: 50%;
-      background-color:rgba(14, 14, 14, 0.144);
-
-      &:hover{
-        transform:scale(1.1);
-        background-color:rgba(255, 255, 255, 0.144);
-
-      }
+      color: $white;
+              &:hover{
+                color:$red;
+                transform:scale(1.5);
+              }
   }
+  .love-ed{
+              color:$red;
+              background-color:$redh;
+  }
+  .buy{
+    background-color:$blueh;
+    color:$white;
+    &:hover{
+        transform:scale(1.1);
+        background-color:$blue;
+        color:$abs-white;
+    }
+  }
+}

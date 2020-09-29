@@ -24,7 +24,9 @@ import Snackbar from 'components/utils/notification/Snackbar';
 import { axiosApi } from 'api/axios/axiosApi';
 import Notification from './notification/NotificationComponent';
 import Profile from './profile/Profile';
-import {connect} from 'react-redux';
+import {connect,useDispatch,useSelector} from 'react-redux';
+import OptionsTray from './optionsTray/OptionsTray';
+import { fetchCategories } from 'actions/products/productActions';
 // import {ArrowBack} from '@material-ui/icons';
 
 interface IHeaderLink {
@@ -91,9 +93,12 @@ createStyles({
 const Header: React.FC<IProps> = (props) => {
   const history = useHistory();
   const classes = useStyles();
+  const product = useSelector(state => state.product)
+  const dispatch = useDispatch();
   const [toggle, settoggle] = useState(false);
+  const {categories} = product;
 
-  const [category, setCategory] = useState([]);
+  // const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([{}]);
   const [allData, setAllData] = useState([]);
 
@@ -109,26 +114,27 @@ const Header: React.FC<IProps> = (props) => {
   ];
 
   useEffect(() => {
-    loadCategories();
+    // loadCategories();
+    dispatch(fetchCategories())
   }, []);
 
-  const loadCategories = async () => {
-    axiosApi
-      .post('/product/search', {}, {}, false)
-      .then((response: any) => {
-        setAllData(response);
-        let categories: any = [];
-        (response || []).forEach((product: any) => {
-          if (categories.indexOf(product.category) === -1) {
-            categories.push(product.category);
-          }
-        });
-        setCategory(categories);
-      })
-      .catch((err) => {
-        Snackbar.handleError(err);
-      });
-  };
+  // const loadCategories = async () => {
+  //   axiosApi
+  //     .post('/product/search', {}, {}, false)
+  //     .then((response: any) => {
+  //       setAllData(response);
+  //       let categories: any = [];
+  //       (response || []).forEach((product: any) => {
+  //         if (categories.indexOf(product.category) === -1) {
+  //           categories.push(product.category);
+  //         }
+  //       });
+  //       setCategory(categories);
+  //     })
+  //     .catch((err) => {
+  //       Snackbar.handleError(err);
+  //     });
+  // };
 
   return (
     <>
@@ -146,10 +152,10 @@ const Header: React.FC<IProps> = (props) => {
             )}
             <div className = 'logo'>
             <Typography variant="h6" className="title">
-              ShOp
+              STORE
             </Typography>
             </div>
-            <div className = 'search-container'>
+            {/* <div className = 'search-container'>
             <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -163,7 +169,7 @@ const Header: React.FC<IProps> = (props) => {
               inputProps={{ 'aria-label': 'search' }}
             />
             </div>
-          </div>
+          </div> */}
             {!isLoggedin ? (
               <Grid className = 'default-header-auth'>
               <Link to="/login">
@@ -175,10 +181,11 @@ const Header: React.FC<IProps> = (props) => {
 
               </Grid>
             ) : (
-              <div className = 'options-tray'>
-                <Notification/>
-                <Profile/>
-              </div>
+              <OptionsTray/>
+              // <div className = 'options-tray'>
+              //   <Notification/>
+              //   <Profile/>
+              // </div>
             )}
           </>
         </Toolbar>
@@ -214,7 +221,7 @@ const Header: React.FC<IProps> = (props) => {
                 </Link>
               </List>
             ))}
-            <ProductSearch category ={category} allData ={allData}/>
+            <ProductSearch category ={categories} allData ={allData}/>
           </SwipeableDrawer>
         </div>
       ) : null}

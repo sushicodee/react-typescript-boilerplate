@@ -3,7 +3,7 @@
 .header-container {
     display: flex;
     justify-content: space-between;
-    background-color:$purple;
+    background-color:$primary-color;
     color:$secondary-color;
 
     .menu-button{
@@ -28,5 +28,21 @@ a{
 
 .options-tray{
     display:flex;
+   button{
+        margin-left:5px;
+        background-color: $grey;
+        min-width:40px;
+        min-height: 40px;
+        border-radius: $border-circle;
+        &:hover{
+            background-color: $grey;
+            filter:brightness(1.2);
+        }
+        .MuiButton-label{
+            width:30px;
+        }
+        
+    }
 }
+
 

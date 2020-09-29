@@ -1,0 +1,44 @@
+@import './../../../styles//variables';
+.main-menu-wrapper{
+    width:100%;
+    min-width: 150px;
+}
+.menu-item{
+
+    &-selected{
+        color:$white;
+        background-color:$blueh;
+        // background-color: #525357;
+    }
+    &:hover{
+        color:$white;
+    }
+}
+
+.menu-info{
+    display:flex;
+    height:80px;
+    width: 300px;
+    padding:0 10px;
+    justify-content: space-between;
+    .info-selected{
+        width:80%;
+    }
+    .clear-btn{
+        display: flex;
+    }   
+}
+.selected-names-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.selected-name-span{
+    background-color: $blueh;
+    padding:2px 5px;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    color:$white;
+    text-overflow: ellipsis;
+}

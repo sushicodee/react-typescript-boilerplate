@@ -23,20 +23,17 @@ function ProductSearch({category,allData}) {
     }else{
         setTitle('Categories');
     }
-    console.log(open)
   };
   const handleClose = () => {
     setTitle('Categories');
     setOpen(false)
   }
 
-
   const filterSubCategory = (category) => {
     let subCategories: string[] = [];
     subCategories = allData.filter((item:any) => 
             item.category === category
             )
-    console.log(subCategories)
     const sub:any = [];
     subCategories.forEach((data:any) => {
       if(data.subCategory && sub.includes(data.subCategory)){

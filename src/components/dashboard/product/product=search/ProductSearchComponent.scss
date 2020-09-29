@@ -1,7 +1,14 @@
 .product-container{
-    max-height:90vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding:40px;
+    min-height:calc((#{100vh}) - 135px);
+    align-items: flex-start;
+    padding:0 40px;
+    width: auto;
+    flex-wrap: wrap;
+    .grid-item-product{
+    }
+}
+
+.no-products-found{
+    height:calc((#{100vh}) - 135px);
 }

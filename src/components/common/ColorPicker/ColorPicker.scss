@@ -1,0 +1,39 @@
+@import './../../../styles/variables';
+.color-picker-container{
+    display: flex;
+    flex-direction: column;
+    .select-list{
+        display: flex;
+        flex-wrap: wrap;
+        .color-picker-item{
+            width: 20px;
+            height:20px;
+            margin:5px;
+            border-radius: $border-circle;
+            &-active{
+             
+            }
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+    }
+    .selected-list{
+        display: flex;
+        flex-wrap: wrap;
+        .color-picker-item{
+            width: 20px;
+            height:20px;
+            margin:5px;
+            border-radius: $border-circle;
+            &-active{
+             
+            }
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+

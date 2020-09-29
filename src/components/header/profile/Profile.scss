@@ -1,15 +1,51 @@
 @import './../../../styles/variables';
 
-.profile-icon{
-        .material-icons{
-            // background-color:$white;
-        }
-}
 
+.circle-icon{
+    i{
+        height: 20px;
+        width: 20px;
+    }
+}
 .profile-list{
-    width:150px;
+    width:300px;
+    background-color:$bg;
+    border:$border;
+    padding:1rem;
+    overflow: hidden;
         li{
+            align-items: center;
+            height:50px;
+            border-radius:$border-radiusx2;
+            transition:background $speed;
             padding:0 20px;
+            color:$text-color;
+            &-enter{
+                position: absolute;
+                transform:translate(-110%);
+            }
+            &-enter-active{
+                transform: translateX(0%);
+                transition: all $speed ease-in-out;
+            }
+            &-exit{
+                position: absolute;
+            }
+            &-exit-enter{
+                transform: translateX(-110%);
+                transition: all $speed ease-in-out;
+            }
+
+            a{
+                color:$text-color;
+                &:hover{
+                        color:$text-color-h;
+                }
+            }
+            &:hover{
+                background-color: #525457;
+                
+            }
         }
 }
 
