@@ -5,14 +5,22 @@ import Loader from 'components/common/loader/Loader';
 import { useHistory } from 'react-router-dom';
 import ButtonComponent from 'components/common/Button/ButtonComponent';
 import './ProductView.scss';
-import { connect } from 'react-redux';
+import { connect,useDispatch,useSelector} from 'react-redux';
 import {
+  addProduct,
+  deleteProduct,
   fetchProducts,
   handlePageNumber,
+  updateProduct,
 } from './../../../../actions/products/productActions';
 import { Button } from '@material-ui/core';
+import WrappedMap from 'components/common/Map/Map';
+import MapLoading from 'components/common/Map/MapLoading';
 
 function ProductViewComponent(props) {
+  const dispatch = useDispatch();
+  const product = useSelector(state => state.product)
+  const {products} = product
   const history = useHistory();
   const imageurl = process.env.REACT_APP_IMAGE_URL;
   const [columns, setColumns]: any = useState([
@@ -58,7 +66,7 @@ function ProductViewComponent(props) {
     //todo get total data/perPage
     if (currentPage !== lastPage) {
       handlePageChange(currentPage + 1);
-      props.fetchProducts(currentPage);
+      dispatch(fetchProducts(currentPage));
     }
   };
 
@@ -66,7 +74,7 @@ function ProductViewComponent(props) {
     const { currentPage, handlePageChange } = props;
     if (currentPage !== 1) {
       handlePageChange(currentPage - 1);
-      props.fetchProducts(currentPage);
+      dispatch(fetchProducts(currentPage));
     }
   };
 
@@ -75,20 +83,7 @@ function ProductViewComponent(props) {
   }, []);
 
   const loadData = (perPage = 5, currentPage = 1) => {
-    // props.setLoading(true);
-    props.fetchProducts(perPage, currentPage);
-    // setisloading(true);
-    // axiosApi.get('/product',{},true)
-    // // axiosApi.get('/product',{params:{currentPage:pageNumber,perPage:pageSize}},true)
-    // .then(data => {
-    //   setData(data);
-    //   setisloading(false);
-    // })
-    // .catch(err => {
-    //   snack.handleError(err)
-    //   setisloading(false);
-
-    // })
+    dispatch(fetchProducts(perPage, currentPage));
   };
 
   return props.isLoading ? (
@@ -126,6 +121,14 @@ function ProductViewComponent(props) {
         editable={{
           onRowAdd: (newData) =>
             new Promise((resolve, reject) => {
+              dispatch(addProduct(newData,true))
+              resolve();
+              // .then(data => {
+              //   resolve();
+              // })
+              // .catch(err => {
+              //   reject(err);
+              // })
               // axiosApi.post(`${url}`,newData,{},true)
               // .then((response:any) => {
               //   const dataUpdate = [response,...data];
@@ -139,22 +142,29 @@ function ProductViewComponent(props) {
             }),
           onRowUpdate: (newData: any, oldData: any) =>
             new Promise((resolve, reject) => {
+              dispatch(updateProduct(newData,true))
+              resolve();
               // axiosApi.put(`${url}/${newData._id}`,newData,{},true)
-              // .then((response:any) => {
+              // .then((data:any) => {
               //   const dataUpdate = [...data];
               //   const index = oldData.tableData.id;
               //   dataUpdate[index] = newData;
-              //   setData([...dataUpdate])
-              //   snack.showSuccess(`${newData.name} edited successfully`);
               //   resolve();
               // }).catch(err => {
               //   console.log(err)
-              //   snack.handleError(err.data)
               //   reject();
               // })
             }),
           onRowDelete: (oldData: any) =>
             new Promise((resolve, reject) => {
+              dispatch(deleteProduct(oldData._id,true))
+              resolve();
+              // .then(data => {
+              //   resolve()
+              // })
+              // .catch(err => {
+              //   reject();
+              // })
               // axiosApi.remove(`${url}/${oldData._id}`,true)
               // .then((response:any) => {
               //   const dataDelete = [...data];
@@ -186,7 +196,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchProducts: (perPage, currentPage) =>
-    dispatch(fetchProducts(perPage, currentPage)),
+  dispatch(fetchProducts(perPage, currentPage)),
   handlePageChange: (pageNumber) => dispatch(handlePageNumber(pageNumber)),
 });
 

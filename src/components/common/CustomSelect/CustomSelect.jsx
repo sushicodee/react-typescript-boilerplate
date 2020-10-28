@@ -1,5 +1,5 @@
 import { ListItemIcon, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -17,17 +17,25 @@ import ButtonComponent from '../Button/ButtonComponent';
 import './CustomSelect.scss';
 import {useParams} from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux';
-import { fetchSubCategories, searchProducts, setSelectedCategories, setSelectedSubCategories } from 'actions/products/productActions';
+import { fetchSubCategories,setFilterCondition, searchProducts, setSelectedCategories, setSelectedSubCategories, fetchAttributes } from 'actions/products/productActions';
 import { Category } from '@material-ui/icons';
 function CustomSelect({queryName, label, options, multiple }) {
   const dispatch = useDispatch();
   const product = useSelector(state => state.product)
-  const{selectedCategories,selectedSubCategories,filterCondition} = product;
+  const{filterCondition} = product;
   const [selected, setSelected] = React.useState([]);
+  const [previousSelected, setpreviousSelected] = useState([])
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  const prevCondition = usePrevious(filterCondition)
+  // const prevCondition = usePrevious(selectedSub)
+
+  // React.useEffect(() => {
+  //   // if(queryName === 'subCategory' && prevCondition.filterCondition.categories.length!== filterCondition && filterCondition.categories.length){
+  //   //       setSelected([])
+  //   // }
+  //   console.log({prevCondition,filterCondition})
+  // }, [filterCondition && filterCondition.categories])
 
   const params = useParams();
   const handleChange = (event) => {
@@ -70,34 +78,60 @@ function CustomSelect({queryName, label, options, multiple }) {
     return ref.current;
   }
 
-  //for cat and sub cat
+  //for multiple
   React.useEffect(() => {
-    const loadData = (condition = {}) => {
-      let filter = {}
-      if(selected.length){
-        if(queryName === 'category'){
-          dispatch(setSelectedCategories(selected))
-          dispatch(setSelectedSubCategories([]))
-          filter.subCategory = [];
-        }
-      }else{
-        filter = {}
-      }
-      filter[queryName] = selected;
-      const conditionData={...params,...filterCondition,...filter}
+    const changeFilter = () => {
+      const conditionData = Object.assign({},filterCondition[queryName],params);
+      conditionData[queryName] = selected;
       Object.keys(conditionData).forEach(key => conditionData[key] === undefined ? delete conditionData[key] : {});
-      dispatch(searchProducts(conditionData))
+      dispatch(setFilterCondition(conditionData))
+      // dispatch(searchProducts(conditionData))
+
   }
-  loadData();
-  }, [selected,filterCondition])
+  changeFilter();
+  }, [selected,filterCondition[queryName]])
+
+  //for single
+  React.useEffect(() => {
+    const changeFilter = () => {
+      const conditionData = Object.assign({},params);
+      if(queryName === 'sort'){
+        switch(options[selectedIndex]){
+          case 'popularity':
+            conditionData['sortBy'] = 'loveCount'
+            conditionData[queryName] = 'desc'
+            break;
+          case 'low to high':
+            conditionData[queryName] = 'asc'
+            conditionData['sortBy'] = 'price'
+            break;
+          case 'high to low':
+            conditionData[queryName] = 'desc'
+            conditionData['sortBy'] = 'price'
+            break;
+          case 'relevance':
+            conditionData[queryName] = 'views'
+            conditionData['sortBy'] = 'views'
+            break;  
+          default:break;
+        }
+      }
+      Object.keys(conditionData).forEach(key => conditionData[key] === undefined ? delete conditionData[key] : {});
+      dispatch(setFilterCondition(conditionData))
+      // dispatch(searchProducts(conditionData))
+  }
+  changeFilter();
+  }, [selectedIndex,filterCondition[queryName]])
+  
+  const selectedName = selected;
   return (
     <>
       <List
-        className="product-search-container"
+        className="product-search-container container"
         component="nav"
         aria-label="Sort settings"
       >
-        <ListItem button  onClick={handleClickListItem}>
+        <ListItem button className= 'custom-select-btn'  onClick={handleClickListItem}>
           <ListItemText primary={label}></ListItemText>
           <ListItemIcon className="arrows">
             <Icon>expand_more</Icon>
@@ -108,21 +142,20 @@ function CustomSelect({queryName, label, options, multiple }) {
       {multiple ? (
         <Menu
           className="menu-main-wrapper"
-          id="lock-menu"
+          // id="lock-menu"
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
           onClose={handleClose}
-         
         >
           <div className="menu-info">
             <div className = 'info-selected'>
             <Typography variant="subtitle2">
-              {selected.length} selected
+              {selectedName.length} selected
             </Typography>
             <div className ='selected-names-wrapper'>
-              {selected.slice(Math.max(selected.length - 3, 0)).map((item) =><span className = 'selected-name-span'>{item}</span>)}
-              {selected.length > 3 && <span className = 'selected-name-span'>{selected.length-3} more</span>}
+              {selectedName.slice(Math.max(selected.length - 3, 0)).map((item) =><span className = 'selected-name-span'>{item}</span>)}
+              {selectedName.length > 3 && <span className = 'selected-name-span'>{selectedName.length-3} more</span>}
             </div>
             </div>
             <div className = 'clear-btn'>
@@ -135,10 +168,10 @@ function CustomSelect({queryName, label, options, multiple }) {
             />
             </div>
           </div>
-          {options.map((name, index) => (
+          {options && options.map((name, index) => (
             <MenuItem
               className={
-                selected.includes(name)
+                selectedName.includes(name)
                   ? 'menu-item menu-item-selected'
                   : 'menu-item'
               }
@@ -162,7 +195,7 @@ function CustomSelect({queryName, label, options, multiple }) {
           {options.map((option, index) => (
             <MenuItem
               key={option}
-              className = {index ? 'menu-item-selected':''}
+              className = {index === selectedIndex ? 'menu-item menu-item-selected':'menu-item'}
               selected={index === selectedIndex}
               onClick={(event) => handleMenuItemClick(event, index)}
             >

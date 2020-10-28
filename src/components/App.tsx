@@ -8,7 +8,7 @@ import MomentUtils from '@date-io/moment';
 import { Provider } from 'react-redux';
 import { store } from 'store/store';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import Theme from './common/Theme/Theme';
 const App: React.FC = () => {
   return (
     <div className="App">

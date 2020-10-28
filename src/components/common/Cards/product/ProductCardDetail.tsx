@@ -1,8 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
@@ -10,15 +7,17 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import  Icon from '@material-ui/core/Icon';
 import './ProductCardDetail.scss';
-import { useLocation } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+import {useSelector,useDispatch } from 'react-redux';
 import { NumberWithCommas } from 'components/utils/numbers/numbers';
+import { fetchDetails } from 'actions/products/productActions';
+import Loader from 'components/common/loader/Loader';
 
 const useStyles = makeStyles({
   root: {
     // minHeight: 400,
     // maxWidth: 345,
     display: 'flex',
-    // flexDirection: 'column',
     justifyContent: 'center',
     alignItems:'center',
   },
@@ -27,18 +26,18 @@ const useStyles = makeStyles({
 export default function ProductCardDetail(props) {
   const classes = useStyles();
   const imageurl = process.env.REACT_APP_IMAGE_URL;
-  const location = useLocation();
-  const [data,setData]:any = React.useState({});
-  
+  const params = useParams();
+  const dispatch = useDispatch();
+  const {id}:any = params;
+  // const [data,setData]:any = React.useState({});
+  const data = useSelector(state => state.product.productDetails)
   React.useEffect(() => {
-    const {state} = location
-    const cloned = JSON.parse(JSON.stringify(state));
-    setData(cloned);
+    dispatch(fetchDetails(id))
   },[])
-  
+
   return (
-    data &&
-    <Box className={classes.root +' '+ 'card-details-wrapper'}>
+    data ?
+    <Box className={classes.root +' '+ 'card-detail-wrapper'+' '+'container'}>
       {/* <CardActionArea> */}
         <Box className="card-background">
           <Box className="gradient" color="blue"></Box>
@@ -50,12 +49,12 @@ export default function ProductCardDetail(props) {
           className="product-image"
           component="img"
           alt={data.name}
-          // height="350"
-          // width="350"
+          height="350"
+          width="350"
           image={
             data.image
               ? `${imageurl}/${data.image}`
-              : 'https://www.drjainsherbals.com/wp-content/uploads/2015/12/no-product-image.jpg'
+              : 'https://commercial.bunn.com/img/image-not-available.png'
           }
           title={data.name}
         />
@@ -120,21 +119,8 @@ export default function ProductCardDetail(props) {
               </Typography>
             </Box>
           </Box>
-          {/* <Grid container justify ={"space-between"}> */}
-          {/* <Grid item>
-          <Typography className ={'product-stock'} variant="body2" color="textSecondary" component="p">
-              {data.status}
-            </Typography>
-          </Grid>
-          </Grid> */}
-          {/* <CardActions className = 'details-card-actions-wrapper'>
-            <Button className="buy">
-              <Icon>add_shopping_cart</Icon>
-              Add to Cart
-            </Button>
-          </CardActions> */}
         </CardContent>
       {/* </CardActionArea> */}
     </Box>
-    );
+:<Loader/>);
 }

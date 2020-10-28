@@ -1,5 +1,5 @@
 @import './../../../../styles/variables';
-.card-details-wrapper{
+.card-detail-wrapper{
     .title-label{
         text-transform: uppercase;
         text-align: left;
@@ -13,9 +13,8 @@
     }
     
     .card-background{
-        position: relative;
-        width:50%;
-        height:476px;
+        // width:50%;
+        // height:476px;
         transform: scale(.9,.9);
         // box-shadow: -15px 0 35px rgba(0, 0, 0, 0.1),
         // 0 -15px 35px rgba(0, 0, 0, 0.1),
@@ -24,7 +23,7 @@
     }
     
     .product-image{
-        position: absolute;
+        // position: absolute;
         display:flex;
         width:100%;
         height:100%;
@@ -33,8 +32,9 @@
         transform: scale(.8,.8);
     }
     .card-info{
-        background:$white;
-        width:50%;
+        display: flex;
+        flex-direction: column;
+        // background:$white;
         padding:40px;
         box-shadow: 15px 0 35px rgba(0,0,0,0.1),
         0 -15px 35px rgba(0,0,0,0.1),
@@ -67,25 +67,11 @@
         transition: .5s;
     }
 
-    // .color[color="blue"]{
-    //     background-color: #2175f5;
-    //     border-color: #2175f5;
-    // }
-    
     .color[color="red"]{
         background-color: #f84848;
         border-color: #f84848;
     }
     
-    // .color[color="green"]{
-    //     background-color: #29b864;
-    //     border-color: #29b864;
-    // }
-    
-    // .color[color="orange"]{
-    //     background-color: #ff5521;
-    //     border-color: #ff5521;
-    // }
     
     .color[color="black"]{
         background-color: #444;
@@ -138,7 +124,7 @@
     }
     
     .gradients{
-        position:absolute;
+        // position:absolute;
         width:100%;
         height:100%;
         top:0;
@@ -171,7 +157,7 @@
     // }
     
     .brand{
-        position: absolute;
+        // position: absolute;
         width:100%;
         padding:12px;
         left:20px;
@@ -183,7 +169,7 @@
      }
      
       .love {
-          position: absolute;
+        //   position: absolute;
           width:60px;
           height:60px;
           right:20px;
@@ -220,7 +206,7 @@
     }
 
     .share{
-        position: absolute;
+        // position: absolute;
         top: 15px;
         right: 15px;
         background-color: #fff;
@@ -230,7 +216,7 @@
         text-align: center;
         font-size: 1.3rem;
         text-decoration: none;
-        color: $primary-color;
+        color: $secondary-color;
         transition: .5s;
     }
     

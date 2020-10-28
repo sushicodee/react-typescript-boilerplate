@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormBuilder from 'components/common/FormBuilder/FormBuilder';
+import ProfileView from '../profile-view/ProfileView';
 interface IProps {}
 interface IState {
 }
@@ -28,6 +29,7 @@ class ProfileForm extends Component<IProps> {
           buttonTitle={'Profile'}
           form={defaultForm.profileForm}
         />
+        <ProfileView/>
       </>
     );
   }

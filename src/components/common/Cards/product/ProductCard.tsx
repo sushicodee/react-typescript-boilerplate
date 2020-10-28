@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import Card from '@material-ui/core/Card';
-// import CardActionArea from '@material-ui/core/CardActionArea';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -20,59 +20,54 @@ export default function ProductCard({ data }) {
   const history = useHistory();
   const handleDetailPage = () => 
     {
-        history.push({
-            pathname:'/details',state:data
-        })
+        history.push(`details/${data._id}`)
     }
   return (
+    <Card className = 'product-card-container container'>
+      <CardActionArea>
       <Box className='card-wrapper' onClick = {handleDetailPage}>
       <Box className="card-background">
         <CardMedia
           className="product-image"
           component="img"
-          alt={data.name}
-          // height="350"
-          // width="350"
+          alt={data && data.name}
+          height="350"
+          width="350"
           image={
-            data.image
-              ? `${imageurl}/${data.image}`
-              : 'https://www.drjainsherbals.com/wp-content/uploads/2015/12/no-product-image.jpg'
+            data && data.image
+              ? `${imageurl}/${data && data.image}`
+              : 'https://commercial.bunn.com/img/image-not-available.png'
           }
-          title={data.name}
+          title={data && data.name}
         />
-        <span className="brand">{data.brand && data.brand}</span>
+        <span className="brand">{data && data.brand}</span>
       </Box>
       <CardContent className="card-info">
-        <span className="card-info-new"> new</span>
+        {/* <span className="card-info-new"> new</span> */}
         <Box className="card-info-name">
           <Typography  variant="h5" component="h2">
-            {data.name}
+            {data && data.name}
           </Typography>
         </Box>
         <Box className = 'price-wrapper'>
         <Box className="card-info-price">
             <Typography component="span">
-              Rs {NumberWithCommas(data.price)}
+              Rs {NumberWithCommas(data ? data.price:0)}
             </Typography>
         </Box>
         </Box>
-        {/* <Grid container justify ={"space-between"}> */}
-        {/* <Grid item>
-          <Typography className ={'product-stock'} variant="body2" color="textSecondary" component="p">
-              {data.status}
-            </Typography>
-          </Grid>
-          </Grid> */}
+        </CardContent>
+      </Box>
+      </CardActionArea>
         <CardActions className ='card-actions-wrapper'>
           <Button className="love">
             <Icon>favorite_border</Icon>
           </Button>
-          <Button className="buy">
+          <Button className="buy" onClick = {() => console.log('added',data.id)}>
             <Icon>add_shopping_cart</Icon>
             Add to Cart
           </Button>
         </CardActions>
-      </CardContent>
-    </Box>
+    </Card>
   );
 }

@@ -1,0 +1,86 @@
+.toggle-checkbox {
+    display: none;
+  }
+
+  .toggle-label{
+    font-size: 6px;
+  }
+  
+  .toggle-slot {
+    // position: fixed;
+    // top:50vh;
+    // right:0;
+    height: 7em;
+    width: 12em;
+    border: 5px solid #e4e7ec;
+    border-radius: 5em;
+    background-color: white;
+    // box-shadow: 0px 10px 25px #e4e7ec;
+    transition: background-color 250ms;
+  }
+  
+  .toggle-checkbox:checked ~ .toggle-slot {
+    background-color: #374151;
+  }
+  
+  .toggle-button {
+    // transform: translate(11.75em, 1.75em);
+    transform: translate(5.875em, 0.875em);
+    position: absolute;
+    height: 4em;
+    width: 4em;
+    border-radius: 50%;
+    background-color: #ffeccf;
+    box-shadow: inset 0px 0px;
+    transition: background-color 250ms, border-color 250ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+  }
+  
+  .toggle-checkbox:checked ~ .toggle-slot .toggle-button {
+    background-color: #485367;
+    box-shadow: inset 0px 0px 0px 0.75em white;
+    transform: translate(0.875em, 0.875em);
+  }
+  
+  .sun-icon {
+    position: absolute;
+    height: 3em;
+    width: 3em;
+    color: #ffbb52;
+  }
+  
+  .sun-icon-wrapper {
+    position: absolute;
+    height: 3em;
+    width: 3em;
+    opacity: 1;
+    transform: translate(2em, 2em) rotate(15deg);
+    transform-origin: 50% 50%;
+    transition: opacity 150ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+  }
+  
+  .toggle-checkbox:checked ~ .toggle-slot .sun-icon-wrapper {
+    opacity: 0;
+    transform: translate(1.5em, 1em) rotate(0deg);
+  }
+  
+  .moon-icon {
+    position: absolute;
+    height: 3em;
+    width: 3em;
+    color: white;
+  }
+  
+  .moon-icon-wrapper {
+    position: absolute;
+    height: 3em;
+    width: 3em;
+    opacity: 0;
+    transform: translate(5.5em, 1em) rotate(0deg);
+    transform-origin: 50% 50%;
+    transition: opacity 150ms, transform 500ms cubic-bezier(.26,2.5,.46,.71);
+  }
+  
+  .toggle-checkbox:checked ~ .toggle-slot .moon-icon-wrapper {
+    opacity: 1;
+    transform: translate(6em, 1em) rotate(-15deg);
+  }

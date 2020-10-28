@@ -35,7 +35,7 @@ const get=(url,{params = {}} = {},isSecure = false) =>{
 
 const post = (url,data = {},{params = {}} = {},isSecure) =>{
     return new Promise((resolve,reject) => {
-        http.post(url,data,{headers:httpHeaders(isSecure)})
+        http.post(url,data,{headers:httpHeaders(isSecure),params})
         .then(response => {
             resolve(response.data)
         })

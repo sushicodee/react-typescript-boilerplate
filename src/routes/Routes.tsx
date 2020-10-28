@@ -13,6 +13,7 @@ import {ProductView} from 'components/dashboard/product/product-view/ProductView
 import ProductSearchComponent from 'components/dashboard/product/product=search/ProductSearchComponent';
 import MessageComponent from 'components/dashboard/messages/MessageComponent';
 import ProductCardDetail from 'components/common/Cards/product/ProductCardDetail';
+import Cart from 'components/dashboard/cart/Cart';
 
 const Routes = () => {
   return (
@@ -28,9 +29,9 @@ const Routes = () => {
         <ProtectedRoutes path ='/my-products' component = {ProductView}/>
         <ProtectedRoutes path ='/messages' component = {MessageComponent}/>
         <ProtectedRoutes path ='/profile' component = {ProfileForm}/>
-
+        <ProtectedRoutes path ='/cart' component = {Cart}/>
         <PublicRoutes path = '/products/search/:category?/:subCategory?' component = {ProductSearchComponent}/>
-        <PublicRoutes path = '/details'  component = {ProductCardDetail}/>
+        <PublicRoutes path = '/details/:id'  component = {ProductCardDetail}/>
         <PublicRoutes component={NotFound} />
       </Switch>
     </>

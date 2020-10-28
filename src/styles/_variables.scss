@@ -3,7 +3,6 @@ $secondary-color:rgba(255, 255, 255, 0.897);
 $purple:rgb(170, 30, 170);
 $btn-grey:rgba(250, 0, 237, 0.575);
 $orange:#ff8100;
-$grey:rgba(65, 65, 65, 0.733);
 $orangeh:#ff4000;
 $green:#329932;
 $greenh:#198c19;
@@ -16,9 +15,14 @@ $abs-white:white;
 
 $transparent:transparent;
 
-$bg:#242526;
+$bg:rgba(255, 255, 255, 0.815);
+$grey:rgba(65, 65, 65, 0.733);
+
+$bg-dark-mode:#181818;
+$grey-dark-mode:#292929;
+$bg-grey:#dfdfdf;
 $bg-accent:#48414d;
-$bg-grey:#2e2f30;
+
 $text-color:#dadce1;
 $text-color-h:#dddddd;
 

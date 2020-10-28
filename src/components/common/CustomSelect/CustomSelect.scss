@@ -3,12 +3,17 @@
     width:100%;
     min-width: 150px;
 }
+
+.product-search-container{
+    // background-color: $bg-grey;
+    // color:$primary-color;
+    padding:8px;
+}
 .menu-item{
 
     &-selected{
         color:$white;
         background-color:$blueh;
-        // background-color: #525357;
     }
     &:hover{
         color:$white;

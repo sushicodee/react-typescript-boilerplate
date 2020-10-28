@@ -9,11 +9,30 @@ import {
   FETCH_PRODUCTS_ERROR,
   SET_IS_LOADING,
   SET_PAGE_NUMBER,
-  SET_SELECTED_CATEGORIES, SET_FILTER_CONDITION ,SET_SELECTED_SUBCATEGORIES
+  SET_FILTER_CONDITION,
+  ADD_PRODUCT,
+  UPDATE_PRODUCT,
+  DELETE_PRODUCT,
+  SET_PRODUCT_ERROR,
+  FETCH_ATTRIBUTES,
+  FETCH_PRODUCT_DETAILS,
+  FETCH_ALL_PRODUCTS
 } from './types';
-import {useSelector} from 'react-redux';
+
+export const fetchDetails = (id) => async(dispatch) => {
+  try{
+    dispatch(setLoading(true))
+    const data = await axiosApi.get(`/product/details/${id}`)
+    dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
+  }
+  catch (err) {
+
+  }
+  finally{
+    dispatch(setLoading(false))
+  }
+}
 export const fetchProducts = (perPage = 20, currentPage = 1) => (dispatch) => {
-  //call api
   dispatch(setLoading(true));
   axiosApi
     .get(
@@ -42,23 +61,71 @@ export const fetchProducts = (perPage = 20, currentPage = 1) => (dispatch) => {
     });
 };
 
-export const searchProducts = (conditionData) => async (dispatch) => {
+export const addProduct = (data,isSecure) => async(dispatch) =>{
+  // return new Promise((resolve,reject) => async(dispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const data = await axiosApi.post('/product', data, isSecure);
+      dispatch({ type: ADD_PRODUCT, payload: data });
+      // resolve(data)
+    } catch (err) {
+      Snackbar.handleError(err);
+      // reject(err);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  // })
+};
+
+export const updateProduct = (data, isSecure) => async(dispatch) => {
+  // return new Promise((resolve,reject) => async(dispatch) => {
   try {
-    console.log(conditionData,'inside search condition')
     dispatch(setLoading(true));
-    for(let key in conditionData){
-      if(conditionData[key].length === 0){
+    const data = await axiosApi.put(`/product/${data._id}`, data, isSecure);
+    dispatch({ type: UPDATE_PRODUCT, payload: data });
+    // resolve(data)
+  } catch (err) {
+    Snackbar.handleError(err);
+    // reject(err);
+  } finally {
+    dispatch(setLoading(false));
+  }
+// })
+};
+
+export const deleteProduct = (id, isSecure) => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const data = await axiosApi.delete(`/product/${id}`, data, isSecure);
+    dispatch({ type: DELETE_PRODUCT, payload: data });
+    
+  } catch (err) {
+    Snackbar.handleError(err);
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const searchProducts = (conditionData = {},options = {}) => async (dispatch) => {
+  try {
+    const {perPage,currentPage} = options;
+    dispatch(setLoading(true));
+    for (let key in conditionData) {
+      if (conditionData[key].length === 0) {
         delete conditionData[key];
       }
     }
-    dispatch(setfilterCondition(conditionData));
     const data = await axiosApi.post(
       '/product/search',
       conditionData,
-      {},
+      {params: {
+        perPage,
+        currentPage,
+      },},
       false,
     );
     dispatch({ type: FETCH_SEARCH_PRODUCTS, payload: data });
+    // dispatch({type:FETCH_ATTRIBUTES});
   } catch (err) {
     dispatch({
       type: SEARCH_PRODUCTS_ERROR,
@@ -69,13 +136,35 @@ export const searchProducts = (conditionData) => async (dispatch) => {
   }
 };
 
-const setfilterCondition = (cond) => ({type:SET_FILTER_CONDITION,payload:cond})
-
+export const fetchAllProducts = () => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const data = await axiosApi.post(
+      '/product/search',
+      {},
+      {},
+      false,
+    );
+    dispatch({ type: FETCH_ALL_PRODUCTS, payload: data });
+    dispatch({type:FETCH_ATTRIBUTES});
+  } catch (err) {
+    dispatch({
+      type: SEARCH_PRODUCTS_ERROR,
+      payload: err,
+    });
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+export const setFilterCondition = (cond) => ({
+  type: SET_FILTER_CONDITION,
+  payload: cond,
+});
 
 export const fetchCategories = () => async (dispatch) => {
   try {
     dispatch(setLoading(true));
-    const data = await axiosApi.post('/product/search', {}, {}, false);
+    const data = await axiosApi.get('/product/categories', {}, {}, false);
     dispatch({ type: FETCH_CATEGORIES, payload: data });
   } catch (err) {
     Snackbar.handleError(err);
@@ -84,19 +173,8 @@ export const fetchCategories = () => async (dispatch) => {
   }
 };
 
-export const setSelectedCategories = (cat) => async(dispatch) => {
-  dispatch({ type: SET_SELECTED_CATEGORIES, payload:cat });
-  dispatch(fetchSubCategories());
-  dispatch({type:SET_SELECTED_SUBCATEGORIES,payload:[]})
-}
-
-export const setSelectedSubCategories = (cat) => async(dispatch) => {
-  dispatch({ type: SET_SELECTED_SUBCATEGORIES, payload:cat });
-}
-
-export const fetchSubCategories = () => 
-    ({ type: FETCH_SUBCATEGORIES});
-
+export const fetchSubCategories = () => ({ type: FETCH_SUBCATEGORIES });
+export const fetchAttributes =() => (dispatch) => dispatch({type:FETCH_ATTRIBUTES});
 const setLoading = (payload) => ({
   type: SET_IS_LOADING,
   payload,
@@ -108,3 +186,10 @@ export const handlePageNumber = (pageNumber) => (dispatch) => {
     payload: pageNumber,
   });
 };
+
+export const setProductError = (err) => dispatch => {
+  dispatch({
+    type:SET_PRODUCT_ERROR,
+    payload:err
+  })
+}

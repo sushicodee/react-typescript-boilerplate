@@ -20,13 +20,12 @@ import clsx from 'clsx';
 import ProductSearch from 'components/dashboard/product/product=search/ProductSearch';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import Snackbar from 'components/utils/notification/Snackbar';
-import { axiosApi } from 'api/axios/axiosApi';
 import Notification from './notification/NotificationComponent';
 import Profile from './profile/Profile';
-import {connect,useDispatch,useSelector} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import OptionsTray from './optionsTray/OptionsTray';
 import { fetchCategories } from 'actions/products/productActions';
+import ThemeMode from 'components/common/Theme/Theme';
 // import {ArrowBack} from '@material-ui/icons';
 
 interface IHeaderLink {
@@ -37,7 +36,7 @@ interface IHeaderLink {
 
 interface IProps {
   isLoggedin?: boolean;
-  logout:() => void;
+  // logout?:() => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -97,12 +96,9 @@ const Header: React.FC<IProps> = (props) => {
   const dispatch = useDispatch();
   const [toggle, settoggle] = useState(false);
   const {categories} = product;
-
-  // const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([{}]);
   const [allData, setAllData] = useState([]);
 
-  // const toggleClass = toggle ? '-open' : '-close';
   const { isLoggedin } = props;
   const headerLinks: IHeaderLink[] = [
     { name: 'Home', path: '/', iconName: 'home' },
@@ -138,7 +134,8 @@ const Header: React.FC<IProps> = (props) => {
 
   return (
     <>
-      <AppBar className='header-wrapper'>
+      <AppBar color = 'transparent' className='header-wrapper'>
+       {/* <ThemeMode/> */}
         <Toolbar className="header-container">
           <>
             {isLoggedin && (
@@ -171,7 +168,7 @@ const Header: React.FC<IProps> = (props) => {
             </div>
           </div> */}
             {!isLoggedin ? (
-              <Grid className = 'default-header-auth'>
+              <Grid className = 'default-header-auth container'>
               <Link to="/login">
                 <Button color="inherit">Login</Button>
               </Link>
@@ -182,10 +179,6 @@ const Header: React.FC<IProps> = (props) => {
               </Grid>
             ) : (
               <OptionsTray/>
-              // <div className = 'options-tray'>
-              //   <Notification/>
-              //   <Profile/>
-              // </div>
             )}
           </>
         </Toolbar>
@@ -206,6 +199,7 @@ const Header: React.FC<IProps> = (props) => {
             onClose={() => settoggle(false)}
             onOpen={() => settoggle(true)}
           >
+            <div className ='wrapper'>
             {headerLinks.map(({ name, path, iconName },index) => (
               name === 'divider'?<Divider key ={name + index}/>:
               <List key={name} className={classes.list+' '+'header-link'}>
@@ -221,7 +215,8 @@ const Header: React.FC<IProps> = (props) => {
                 </Link>
               </List>
             ))}
-            <ProductSearch category ={categories} allData ={allData}/>
+            </div>
+            {/* <ProductSearch category ={categories} allData ={allData}/> */}
           </SwipeableDrawer>
         </div>
       ) : null}
@@ -232,4 +227,4 @@ const mapDispatchToProps = dispatch => ({
  
 })
 
-export default connect(null,mapDispatchToProps)(Header)
+export default (Header)

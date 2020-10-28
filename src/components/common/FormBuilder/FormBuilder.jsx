@@ -157,7 +157,6 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
     }
 
     setdata((predata) => ({ ...predata, [name]: value }));
-    console.log(data)
     // let errors = validateProductForm(name,this.state);
     // setErrors(preError => ({...preError,errors}))
     form.forEach((item) => {
@@ -258,7 +257,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
 
   const formclass = className || 'dynamic-form';
   return (
-    <Container component="main">
+    <Container component="main" className ='container'>
       <CssBaseline />
       <div className={classes.paper}>
         {formName && (

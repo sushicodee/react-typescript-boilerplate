@@ -1,57 +1,116 @@
 @import './../styles//main.scss';
 .header-links{
-    // height: 100vh;
-    // width:$sidebar-width;
-    // background-color: $primary-color;
-    // color:$secondary-color;
-    // position: absolute;
-    // top:0;
-    // left:-$sidebar-width;
-    // transition:0.3s ease-in-out;
-    // z-index: 100;
-    // ul{
-    //     list-style: none;
+   
         a{
             text-decoration: none;
             color:$secondary-color;
         }
     }
 
-//     &-open {
-//         left: 0px;
-//     }
-
-//     &-close{
-//         left:-$sidebar-width;
-//     }
-// }
-
-// .core-app-wrapper {
-//     padding-top:$header-height;
-//     // height:calc(100vh - $header-height)
-// }
-
 a{
     text-decoration:none;
 }
 .App{
-background-color:$bg;
-color:$white;
 
 h3 h4 h5 h6 {
-color:$white;
+// color:$white;
 }
-input{
-color:$white;
+// input{
+// color:$white;
+// }
+// label{
+//     color:$white;
+// }
 }
-label{
-    color:$white;
-}
-}
-
 .arrows{
     span{
         color:$white;
+    }
+}
+body {
+    font-family:  Helvetica ,Arial, sans-serif;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+
+body.dark{
+    p,span,h1,h2,h3,h4,h5,h6,label,input{
+        color: $secondary-color;
+    }
+    .MuiMenu-list{
+        background-color: $bg-dark-mode;
+        color: $secondary-color;
+    }
+    .icon-button{
+        background-color: #484a4d;
+    }
+    background-color: $bg-dark-mode;
+    color: $secondary-color;
+    .card {
+      background-color: $grey-dark-mode;
+      box-shadow: none;
+    }
+    .skeleton{
+        background-color: $grey-dark-mode;
+        box-shadow: none;
+    }
+    .dropdown {
+        background-color: $grey-dark-mode;
+    }
+    .header-container {
+        background-color: $grey-dark-mode;
+        .menu-button{
+            color:$secondary-color;
+        }
+    }
+    .container{
+        background-color: $grey-dark-mode;
+    }
+    .card{
+        background-color: $grey-dark-mode;
+    }
+    .wrapper {
+        color:$secondary-color;
+        a,span{
+            color:$secondary-color;
+        }
+        background-color:$bg-dark-mode;
+        height:-webkit-fill-available;
+    }
+}
+
+body.light{
+    // p,span,h1,h2,h3,h4,h5,h6,label{
+    //     color: $primary-color;
+    // }
+    background-color: $bg-grey;
+    color: $primary-color;
+    .icon-button{
+        background-color: #484a4d;
+    }
+    .card {
+      background-color: $white;
+      box-shadow: none;
+    }
+    .skeleton{
+        background-color: $grey;
+        box-shadow: none;
+    }
+    .header-container{
+        background-color: $abs-white;
+        color:$primary-color
+    }
+    .container{
+        background-color: $white;
+    }
+    .wrapper {
+        color:$primary-color;
+        a,span{
+            color:$primary-color;
+        }
+        background-color:$abs-white;
+        height:-webkit-fill-available;
     }
 }
 

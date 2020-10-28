@@ -4,7 +4,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { isArray } from 'util';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,7 +24,7 @@ const SelectComponent = ({name, label, value, props = {dependency:[],menuItems:[
   const [open, setOpen] = useState(false);
   const [display, setdisplay] = useState(true);
   useEffect(() => {
-    if (isArray(props.dependency)) {
+    if (Array.isArray(props.dependency)) {
       setdisplay(data[props.dependency[0]]);
     }
   }, [data]);

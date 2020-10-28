@@ -6,6 +6,7 @@ import { logout } from 'actions/user/authActions';
 import { useHistory } from 'react-router-dom';
 import {useSelector,useDispatch} from 'react-redux';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Theme from 'components/common/Theme/Theme';
 function OptionsTray(props) {
   return (
     <Navbar>
@@ -129,6 +130,13 @@ function DropdownMenu(props) {
           >
             Settings
           </DropdownItem>
+          <DropdownItem
+            leftIcon={'settings'}
+            rightIcon={'chevron_right'}
+            goToMenu="displaySettings"
+          >
+            Display Preferences
+          </DropdownItem>
           <DropdownItem handleItemClick={handleLogout} leftIcon="logout">
             Logout
           </DropdownItem>
@@ -150,6 +158,23 @@ function DropdownMenu(props) {
           <DropdownItem leftIcon={'settings'}>Setting 2</DropdownItem>
           <DropdownItem leftIcon={'settings'}>Setting 3</DropdownItem>
           <DropdownItem leftIcon={'settings'}>Setting 4</DropdownItem>
+         
+        </div>
+      </CSSTransition>
+      <CSSTransition
+        in={activeMenu === 'displaySettings'}
+        timeout={500}
+        classNames="menu-secondary"
+        unmountOnExit
+        onEnter={calcHeight}
+      >
+        <div className="menu">
+          <DropdownItem goToMenu="main" leftIcon={'chevron_left'}>
+            <h2>Profile</h2>
+          </DropdownItem>
+          <DropdownItem leftIcon={'settings'}><Theme/></DropdownItem>
+         
+         
         </div>
       </CSSTransition>
     </div>

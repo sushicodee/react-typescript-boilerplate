@@ -1,66 +1,82 @@
 @import './../../../../styles/variables';
+.MuiCardContent-root{
+    padding:8px;
+}
+
+.product-container{
+    // display: flex;
+    // min-height:calc((#{100vh}) - 135px);
+    // align-items: flex-start;
+    // padding:0 40px;
+    width: auto;
+    // flex-wrap: wrap;
+    box-shadow: -15px 0 35px rgba(0,0,0,0.1),
+    0 -15px 35px rgba(0,0,0,0.1), 
+    0 15px 35px rgba(0,0,0,0.1);
+    .grid-item-product{
+    }
+}
+
 .product-image{
     object-fit: cover;
+    background-repeat: no-repeat;
+    // width: 100%;
 }
 .product-stock{
     color:$green;
 }
 .card-wrapper{
-    position: relative;
-    width:100%;
-    background-color: $abs-white;
-    min-width: 295px;
-    min-height:476px;
-    background-color: $bg-grey;
-    box-shadow: -15px 0 35px rgba(0,0,0,0.1),
-    0 -15px 35px rgba(0,0,0,0.1), 
-    0 15px 35px rgba(0,0,0,0.1);
+    // position: relative;
+    // background-color: $abs-white;
+    // min-width: 295px;
+    // min-height:456px;
+    // background-color: $bg-grey;
+
     
     &:hover{
         cursor: pointer;
     }
 
     .card-background{
-        position: absolute;
-        top:0;
-        left: 0;
-        right: 0;
-        height:346px;
+        // position: absolute;
+        // top:0;
+        // left: 0;
+        // right: 0;
+        min-height:12em;
         // transform: scale(.9,.9);
-        box-shadow: -15px 0 35px rgba(0, 0, 0, 0.1),
-        0 -15px 35px rgba(0, 0, 0, 0.1),
-        0 15px 35px rgba(0, 0, 0, 0.1);
-        transition: .5s;
+        // box-shadow: -15px 0 35px rgba(0, 0, 0, 0.1),
+        // 0 -15px 35px rgba(0, 0, 0, 0.1),
+        // 0 15px 35px rgba(0, 0, 0, 0.1);
+        // transition: .5s;
     }
 }
 .product-image{
-    position: absolute;
+    // position: absolute;
     display:flex;
     width:100%;
-    // height:100%;
+    height:100%;
     height: inherit;
     top:0;
     left:0;
 }
 .card-info{
-    position: absolute;
+    // position: absolute;
     text-align: center;
     display: flex;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
+    // width: 100%;
+    // height: 100%;
+    // z-index: 10;
     &-name{
         h2{
             font-size: 1.2em;
             padding:10px 10px;
+            // color:$primary-color;
         }
-        position: absolute;
+        // position: absolute;
         display: flex;
         width: 100%;
         justify-content: space-between;
-        left: 0;
-        right:40px;
-        top:350px
+      
     }
     .price-wrapper{
         display: flex;
@@ -69,7 +85,7 @@
     }
     &-price{
             display: flex;
-            top:369px;
+            // top:369px;
             right:0;
             display: inline-block;
             width: auto;
@@ -126,11 +142,11 @@
     }
 }
 .brand{
-    position: absolute;
-    width:100%;
+    // position: absolute;
+    // width:100%;
     padding:12px;
-    left:0px;
-    top:40px;
+    // left:0px;
+    // top:40px;
     text-transform: uppercase;
     line-height:.9;
     border-radius: 5px;
@@ -139,10 +155,9 @@
  }
 
  .card-actions-wrapper{
-    position: absolute;
-    bottom: 0;
-    right:0;
+    background-color:$blueh;
     display: flex;
+    justify-content: flex-end;
   .love {
       color: $white;
               &:hover{
