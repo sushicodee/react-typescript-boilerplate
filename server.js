@@ -14,6 +14,6 @@ app.use(express.static(path.join(__dirname,'build')))
 app.get('/*', (req,res,next) => {
     res.sendFile(path.join(__dirname,'build/index.html'))
 })
-app.listen(process.env.port || 8080, () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log('server listening')
 })
