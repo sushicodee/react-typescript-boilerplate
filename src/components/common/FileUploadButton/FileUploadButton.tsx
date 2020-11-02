@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import './FileUploadButton.scss'
 import { Icon, Typography } from '@material-ui/core';
 
@@ -22,10 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const FileUploadButton = ({name,label,value,props, handlechange,error }) => {
   const classes = useStyles();
   const imageUrl = process.env.REACT_APP_IMAGE_URL;
-
-  React.useEffect(() => {
-    console.log(name,label,value,props)
-  }, [])
 
   return (
     <div className={classes.root +' '+'upload-button-wrapper'} key={name}>

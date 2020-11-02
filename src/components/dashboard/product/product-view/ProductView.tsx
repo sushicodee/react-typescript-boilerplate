@@ -14,13 +14,11 @@ import {
   updateProduct,
 } from './../../../../actions/products/productActions';
 import { Button } from '@material-ui/core';
-import WrappedMap from 'components/common/Map/Map';
-import MapLoading from 'components/common/Map/MapLoading';
 
 function ProductViewComponent(props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const product = useSelector(state => state.product)
-  const {products} = product
+  // const {products} = product
   const history = useHistory();
   const imageurl = process.env.REACT_APP_IMAGE_URL;
   const [columns, setColumns]: any = useState([

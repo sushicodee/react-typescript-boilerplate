@@ -32,6 +32,7 @@ export const fetchDetails = (id) => async(dispatch) => {
     dispatch(setLoading(false))
   }
 }
+
 export const fetchProducts = (perPage = 20, currentPage = 1) => (dispatch) => {
   dispatch(setLoading(true));
   axiosApi
@@ -61,11 +62,11 @@ export const fetchProducts = (perPage = 20, currentPage = 1) => (dispatch) => {
     });
 };
 
-export const addProduct = (data,isSecure) => async(dispatch) =>{
+export const addProduct = (product,isSecure) => async(dispatch) =>{
   // return new Promise((resolve,reject) => async(dispatch) => {
     try {
       dispatch(setLoading(true));
-      const data = await axiosApi.post('/product', data, isSecure);
+      const data = await axiosApi.post('/product', product, isSecure);
       dispatch({ type: ADD_PRODUCT, payload: data });
       // resolve(data)
     } catch (err) {
@@ -77,11 +78,11 @@ export const addProduct = (data,isSecure) => async(dispatch) =>{
   // })
 };
 
-export const updateProduct = (data, isSecure) => async(dispatch) => {
+export const updateProduct = (product, isSecure) => async(dispatch) => {
   // return new Promise((resolve,reject) => async(dispatch) => {
   try {
     dispatch(setLoading(true));
-    const data = await axiosApi.put(`/product/${data._id}`, data, isSecure);
+    const data = await axiosApi.put(`/product/${product._id}`, product, isSecure);
     dispatch({ type: UPDATE_PRODUCT, payload: data });
     // resolve(data)
   } catch (err) {
@@ -96,7 +97,7 @@ export const updateProduct = (data, isSecure) => async(dispatch) => {
 export const deleteProduct = (id, isSecure) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
-    const data = await axiosApi.delete(`/product/${id}`, data, isSecure);
+    const data = await axiosApi.delete(`/product/${id}`,{}, isSecure);
     dispatch({ type: DELETE_PRODUCT, payload: data });
     
   } catch (err) {
@@ -108,7 +109,6 @@ export const deleteProduct = (id, isSecure) => async (dispatch) => {
 
 export const searchProducts = (conditionData = {},options = {}) => async (dispatch) => {
   try {
-    const {perPage,currentPage} = options;
     dispatch(setLoading(true));
     for (let key in conditionData) {
       if (conditionData[key].length === 0) {
@@ -119,13 +119,11 @@ export const searchProducts = (conditionData = {},options = {}) => async (dispat
       '/product/search',
       conditionData,
       {params: {
-        perPage,
-        currentPage,
+        ...options
       },},
       false,
     );
     dispatch({ type: FETCH_SEARCH_PRODUCTS, payload: data });
-    // dispatch({type:FETCH_ATTRIBUTES});
   } catch (err) {
     dispatch({
       type: SEARCH_PRODUCTS_ERROR,
@@ -156,9 +154,10 @@ export const fetchAllProducts = () => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
-export const setFilterCondition = (cond) => ({
+
+export const setFilterCondition = (key,condition,filterKey) => ({
   type: SET_FILTER_CONDITION,
-  payload: cond,
+  payload:{key,condition,filterKey}
 });
 
 export const fetchCategories = () => async (dispatch) => {

@@ -7,7 +7,6 @@ function InputComponent({ type,name,label,error,handlechange,data,props}) {
     const inputType = type === undefined ? 'string':`${type}`;
     const [display, setdisplay] = useState(true)
     const [currency,setCurrency] = useState(false);
-    
     const inputProps ={
     startAdornment: <InputAdornment position="start">{currency}</InputAdornment>,
     }
@@ -19,7 +18,7 @@ function InputComponent({ type,name,label,error,handlechange,data,props}) {
         if(props.currency){
             setCurrency(props.currency)
         }
-    }, [data])
+    }, [data,props.currency,props.dependency,data[props.dependency[0]]])
 
     return (
         <>

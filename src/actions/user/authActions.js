@@ -20,10 +20,10 @@ export const login = (data) => dispatch => {
             resolve('success')
         })
         .catch(err => {
-            Snackbar.handleError(err.data);
+            Snackbar.handleError(err);
             dispatch({
                 type:LOGIN_FALIURE,
-                payload:err.data.message
+                payload:err
             })
             reject('error');
         })
@@ -34,9 +34,9 @@ export const login = (data) => dispatch => {
 }
 
 
-const updateUser = (data) => dispatch => {
-    //todo
-}
+// const updateUser = (data) => dispatch => {
+//     //todo
+// }
 
 export const logout = () => dispatch => {
     clearStorage()

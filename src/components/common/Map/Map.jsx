@@ -1,10 +1,10 @@
 import Configs from 'configs/Configs';
-import React ,{useEffect,useState} from 'react';
+import React from 'react';
 import { GoogleMap,withScriptjs,withGoogleMap,Marker} from 'react-google-maps';
 
 function Map({storeData}) {
     const {center,defaultZoom} = Configs.googleMaps;
-    const [selected,setSelectedStore] = useState({})
+    // const [selected,setSelectedStore] = useState({})
   return (
     <GoogleMap defaultZoom={defaultZoom} defaultCenter={center}>
         {storeData && storeData.location.map(store => 

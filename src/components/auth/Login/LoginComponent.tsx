@@ -21,8 +21,6 @@ import {
   removeItem,
   getItem,
 } from 'components/utils/localStorage/LocalStorage';
-import { axiosApi } from 'api/axios/axiosApi';
-import snack from './../../utils/notification/Snackbar';
 import { connect } from 'react-redux';
 import { login } from './../../../actions/user/authActions';
 
@@ -298,14 +296,14 @@ export class Login extends Component<IProps, IState> {
               </Button>
             )}
             <Grid container>
-              <Grid item xs>
+              <Grid item xs = {6} >
                 <Link to="/forgot">
                   <Typography variant="body2" id="forgot-link">
                     Forgot password?
                   </Typography>
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid item xs = {6}>
                 <Link to="/signup">
                   <Typography variant="body2" id="forgot-link">
                     {"Don't have an account? Sign Up"}

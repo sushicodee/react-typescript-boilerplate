@@ -1,4 +1,3 @@
-import { Category } from '@material-ui/icons';
 import produce from 'immer';
 import {
   FETCH_PRODUCTS,
@@ -27,10 +26,11 @@ const initialState = {
   perPage: 10,
   categories: [],
   subCategories: [],
-  filterCondition: {},
+  filterCondition: {filters:{},options:{},count:0},
   attributes: {},
   productDetails: {},
-
+  mainCategories:[],
+  selectedMainCategory:'',
 };
 
 // export const productReducer = (state = initialState, action) => {
@@ -52,6 +52,7 @@ const productReducer = (draft, action) => {
 
     case ADD_PRODUCT: {
       draft.products.push(action.payload)
+      return;
     }
 
     case DELETE_PRODUCT: {
@@ -68,7 +69,8 @@ const productReducer = (draft, action) => {
     }
 
     case SET_FILTER_CONDITION: {
-      draft.filterCondition = action.payload;
+      draft.filterCondition[action.payload.filterKey][action.payload.key] = action.payload.condition
+      draft.filterCondition.count++;
       return;
     }
 
@@ -88,7 +90,7 @@ const productReducer = (draft, action) => {
     }
 
     case FETCH_CATEGORIES: {
-     
+      draft.mainCategories = action.payload;
       // draft.categories = action.payload;
       return;
     }

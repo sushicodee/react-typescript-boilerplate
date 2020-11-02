@@ -1,24 +1,18 @@
-import React ,{useEffect,useMemo}from 'react';
+import React ,{useMemo}from 'react';
 import './ProductFilter.scss';
 import CustomSelect from 'components/common/CustomSelect/CustomSelect';
-import {useSelector,useDispatch} from 'react-redux';
-import { fetchAttributes, searchProducts } from 'actions/products/productActions';
+import {useSelector} from 'react-redux';
 function ProductFilterComponent() {
-    const dispatch = useDispatch();
     const product = useSelector(state => state.product)
-    const {attributes:{category,brand,color}} = product;
-    const sortItems = useMemo(() => ['Relevance','Popularity', 'low to high', 'high to low']);
-    useEffect(() => {
-      // dispatch(searchProducts())
-      // dispatch(fetchAttributes())
-    }, [])
+    const {attributes:{category,brand}} = product;
+    const sortItems = useMemo(() => ['Relevance','Popularity', 'low to high', 'high to low'],[]);
   return (
     <div
       className="product-search-wrapper"
     >
-        <CustomSelect queryName={'Sort'} label = {'Sort'} options= {sortItems} multiple = {false}/>
-        <CustomSelect queryName={'category'} label = {'Category'} options= {category} multiple = {true}/>
-        <CustomSelect queryName={'brand'} label = {'Brand'} options= {brand} multiple = {true}/>
+        <CustomSelect filterKey = {'options'} queryName={'sort'} label = {'Sort'} options= {sortItems} multiple = {false}/>
+        <CustomSelect filterKey = {'filters'} queryName={'category'} label = {'Category'} options= {category} multiple = {true}/>
+        <CustomSelect filterKey = {'filters'} queryName={'brand'} label = {'Brand'} options= {brand} multiple = {true}/>
         {/* <CustomSelect queryName = {'color'} label = {'Color'} options = {color} multiple = {false}/> */}
     </div>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,14 +9,16 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Icon from '@material-ui/core/Icon';
 import { NumberWithCommas } from 'components/utils/numbers/numbers';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './ProductCard.scss';
-
+import {useDispatch} from 'react-redux';
+import { addToCart } from 'actions/cart/cartActions';
 
 export default function ProductCard({ data }) {
   // const classes = useStyles();
   const imageurl = process.env.REACT_APP_IMAGE_URL;
   const history = useHistory();
+  const dispatch = useDispatch();
   const handleDetailPage = () => 
     {
         history.push(`details/${data._id}`)
@@ -31,8 +32,8 @@ export default function ProductCard({ data }) {
           className="product-image"
           component="img"
           alt={data && data.name}
-          height="350"
-          width="350"
+          height="370"
+          width="370"
           image={
             data && data.image
               ? `${imageurl}/${data && data.image}`
@@ -63,7 +64,7 @@ export default function ProductCard({ data }) {
           <Button className="love">
             <Icon>favorite_border</Icon>
           </Button>
-          <Button className="buy" onClick = {() => console.log('added',data.id)}>
+          <Button className="buy" onClick = {() => dispatch(addToCart(data._id))}>
             <Icon>add_shopping_cart</Icon>
             Add to Cart
           </Button>

@@ -29,7 +29,7 @@ const Routes = () => {
         <ProtectedRoutes path ='/my-products' component = {ProductView}/>
         <ProtectedRoutes path ='/messages' component = {MessageComponent}/>
         <ProtectedRoutes path ='/profile' component = {ProfileForm}/>
-        <ProtectedRoutes path ='/cart' component = {Cart}/>
+        <ProtectedRoutes path ='/cart/:id?' component = {Cart}/>
         <PublicRoutes path = '/products/search/:category?/:subCategory?' component = {ProductSearchComponent}/>
         <PublicRoutes path = '/details/:id'  component = {ProductCardDetail}/>
         <PublicRoutes component={NotFound} />

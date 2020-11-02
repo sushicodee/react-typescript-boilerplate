@@ -10,12 +10,11 @@ function Theme() {
   useEffect(() => {
     const initTheme = () => {
         if(theme === 'dark'){
-            console.log('setting init')
             setTheme(true);
         }
     };
     initTheme();
-  }, []);
+  }, [theme]);
 
   useEffect(() => {
     const switchTheme = () => {
@@ -57,9 +56,6 @@ function Theme() {
         </div>
       </div>
     </label>
-    // <button  className = {`theme-switch theme-switch-${theme}`} onClick = {handletoggle}>
-    //     {theme}
-    // </button>
   );
 }
 export default Theme;

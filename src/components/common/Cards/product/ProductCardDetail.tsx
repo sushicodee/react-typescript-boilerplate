@@ -12,11 +12,10 @@ import {useSelector,useDispatch } from 'react-redux';
 import { NumberWithCommas } from 'components/utils/numbers/numbers';
 import { fetchDetails } from 'actions/products/productActions';
 import Loader from 'components/common/loader/Loader';
+import { addToCart } from 'actions/cart/cartActions';
 
 const useStyles = makeStyles({
   root: {
-    // minHeight: 400,
-    // maxWidth: 345,
     display: 'flex',
     justifyContent: 'center',
     alignItems:'center',
@@ -32,12 +31,12 @@ export default function ProductCardDetail(props) {
   // const [data,setData]:any = React.useState({});
   const data = useSelector(state => state.product.productDetails)
   React.useEffect(() => {
-    dispatch(fetchDetails(id))
-  },[])
+    fetchDetails(id);
+  },[id])
 
   return (
     data ?
-    <Box className={classes.root +' '+ 'card-detail-wrapper'+' '+'container'}>
+    <Box className={`${classes.root} card-detail-wrapper container`}>
       {/* <CardActionArea> */}
         <Box className="card-background">
           <Box className="gradient" color="blue"></Box>
@@ -107,10 +106,10 @@ export default function ProductCardDetail(props) {
           </Box>
           <Box className="card-price">
             <Box className="price">
-              <Button className="buy">
-              <Icon>add_shopping_cart</Icon>
-              Add to Cart
-              </Button>
+            <Button className="buy" onClick = {() => dispatch(addToCart(data._id))}>
+            <Icon>add_shopping_cart</Icon>
+            Add to Cart
+          </Button>
               <Typography className="currency title-label" variant="h6">
                 Rs
               </Typography>

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './ColorPicker.scss';
 function ColorPicker({
   name,
   label,
   type,
   value,
-  props: { dependency },
   handlechange,
+  ...rest
 }) {
   const [selected, setSelected] = useState([]);
 
@@ -54,7 +54,6 @@ function ColorPicker({
     handlechange(e, selected);
   };
 
-  useEffect(() => {}, []);
   return (
     <div className="color-picker-container">
       <h3>Select Colors</h3>

@@ -10,7 +10,7 @@ $red:#ff3232;
 $redh:#ff0000;
 $blue:rgb(0, 162, 255);
 $blueh:rgba(0, 110, 255, 0.87);
-$white:rgba(255, 255, 255, 0.856);
+$white:rgb(255, 255, 255);
 $abs-white:white;
 
 $transparent:transparent;
@@ -35,7 +35,7 @@ $border-radiusx2:8px;
 $border-circle:50%;
 
 
-$speed:500ms;
+$speed:400ms;
 
 // header
 $header-height:64px;

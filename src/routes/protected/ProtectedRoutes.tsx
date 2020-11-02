@@ -4,7 +4,7 @@ import Header from 'components/header/Header';
 import {connect} from 'react-redux';
 
 const ProtectedRoutes = ({ component: Component, ...props }) => {
-  const { isAuthorised,isLoggedin} = props.auth;
+  const {isLoggedin} = props.auth;
   return (
     <Route
       {...props}

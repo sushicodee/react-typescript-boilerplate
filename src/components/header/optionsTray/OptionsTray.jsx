@@ -8,14 +8,13 @@ import {useSelector,useDispatch} from 'react-redux';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Theme from 'components/common/Theme/Theme';
 function OptionsTray(props) {
+  
   return (
     <Navbar>
-      <NavItem icon={'favorite_border'} />
-      <NavItem icon={'shopping_cart'} />
+      <NavItem icon={'favorite_border'} path = {'/favorites'}/>
+      <NavItem icon={'shopping_cart'} path = {'/cart'}/>
       <NavItem icon={'person'}>
-        <DropdownMenu
-         
-        ></DropdownMenu>
+        <DropdownMenu></DropdownMenu>
       </NavItem>
     </Navbar>
   );
@@ -30,13 +29,22 @@ function Navbar(props) {
 }
 
 function NavItem(props) {
+  const history = useHistory();
+  const cartItems = useSelector(state => state.cart.cartItems)
+  function handleNavigation(path) {
+    history.push(path);
+  }
   const [open, setOpen] = useState(false);
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
     <li className="nav-item">
-      <button className="icon-button" onClick={() => setOpen(!open)}>
+      <button className="icon-button" onClick={() => props.path ? handleNavigation(props.path):setOpen(!open)}>
         <Icon>{props.icon}</Icon>
       </button>
+      {props.path ==='/cart' && cartItems.length ?
+                <span className = "cart-count">{cartItems.length}</span> 
+                :null
+      }      
       {open && props.children}
     </li>
       </ClickAwayListener>
@@ -66,8 +74,8 @@ function DropdownMenu(props) {
     history.push('/login');
   }
 
-  function handleProfile() {
-    history.push('/profile');
+  function handleNavigation(path) {
+    history.push(path);
   }
 
   function DropdownItem(props) {
@@ -89,6 +97,7 @@ function DropdownMenu(props) {
             <Icon className="icon-left">{props.leftIcon}</Icon>
           </span>
         )}
+        {props.label && props.label}
         {props.children}
         <span className="icon-right">
           <Icon>{props.rightIcon}</Icon>
@@ -108,7 +117,7 @@ function DropdownMenu(props) {
       >
         <div className="menu">
           <DropdownItem
-            handleItemClick={handleProfile}
+            handleItemClick={() => handleNavigation('/profile')}
             leftIconComponent={
               <Avatar
                 alt={auth && auth.user.username}
@@ -131,7 +140,7 @@ function DropdownMenu(props) {
             Settings
           </DropdownItem>
           <DropdownItem
-            leftIcon={'settings'}
+            leftIcon={'brightness_medium'}
             rightIcon={'chevron_right'}
             goToMenu="displaySettings"
           >
@@ -172,9 +181,7 @@ function DropdownMenu(props) {
           <DropdownItem goToMenu="main" leftIcon={'chevron_left'}>
             <h2>Profile</h2>
           </DropdownItem>
-          <DropdownItem leftIcon={'settings'}><Theme/></DropdownItem>
-         
-         
+          <DropdownItem leftIcon={'settings'} label = 'Toggle Theme'><Theme/></DropdownItem>
         </div>
       </CSSTransition>
     </div>

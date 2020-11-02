@@ -1,0 +1,41 @@
+@import './../../../styles/variables';
+
+.cart{
+ display: flex;
+ flex-direction: row;
+ &-list{
+   flex:3;
+    &-item{
+       margin:20px 10px 0 10px;
+       padding:10px;
+       display: flex;
+       &-image{
+          width:100px;
+          height:100px;
+          flex:1 1 30rem;
+       }
+       &-info{
+         margin:0 10px;
+         flex:1 1 40rem;
+       }
+       &-actions{
+         flex:1 1 30rem;
+       }
+    }
+ }
+ &-checkout{
+   margin:20px 0 0 0;
+   flex:1;
+   background-color: $blue;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   .details{
+   }
+   .cta{
+      display: flex;
+      margin:10px;
+   }
+ }
+}
+

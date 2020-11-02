@@ -87,7 +87,8 @@ body.light{
     background-color: $bg-grey;
     color: $primary-color;
     .icon-button{
-        background-color: #484a4d;
+        background-color: $primary-color;
+        color:$secondary-color
     }
     .card {
       background-color: $white;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { makeStyles, Input, Grid } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 import InputComponent from '../Input/InputComponent';
 import ButtonComponent from '../Button/ButtonComponent';
 import FileUploadButton from '../FileUploadButton/FileUploadButton';
@@ -53,61 +53,6 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
   });
   const [title,setTitle] = useState('');
 
-  useEffect(() => {
-    const defaultTouch = defaultDerived('touched');
-    const error = defaultDerived('error');
-    const data = defaultDerived('data');
-    setdata(data);
-    setTouched(defaultTouch);
-    setErrors(error);
-    if(formName === 'Product'){
-      let title = params.id ? `Edit ${formName}` : 'Add' + ' ' + formName;
-      setTitle(title);
-      if (params.id) {
-        axiosApi
-          .post(`${url}/search/`, { _id: params.id })
-          .then((response) => {
-            if (response.length) {
-              setdata({ ...data, ...response[0] });
-              return;
-            }
-            setdata(data);
-
-          })
-          .catch((err) => {
-            snack.handleError('unable to fetch data');
-            setdata(data);
-          });
-      }
-    }
-  }, [params.id]);
-
-  useEffect(() => {
-    const defaultTouch = defaultDerived('touched');
-    const error = defaultDerived('error');
-    const data = defaultDerived('data');
-    setdata(data);
-    setTouched(defaultTouch);
-    setErrors(error);
-    if(formName === 'Profile'){
-      let title = `Update ${formName}`
-      setTitle(title);
-      axiosApi
-      .get(`${url}/${auth.user._id}`,{},auth.isAuthorized)
-      .then((response) => {
-          if(response.address){
-          response.temp_address = response['address']['temp_address'] &&  response['address']['temp_address'].join(',') || ''
-          response.permanent_address = response['address']['permanent_address'] &&  response['address']['permanent_address'] || ''
-        }
-        setdata({ ...data, ...response});
-      })
-      .catch((err) => {
-        snack.handleError('unable to fetch data');
-        setdata(data);
-      });
-    }
-  }, [auth.user._id])
-
   const defaultDerived = (state) => {
     const newState = {};
     if (state === 'touched') {
@@ -142,6 +87,63 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
     }
     return newState;
   };
+
+  useEffect(() => {
+    const defaultTouch = defaultDerived('touched');
+    const error = defaultDerived('error');
+    const data = defaultDerived('data');
+    setdata(data);
+    setTouched(defaultTouch);
+    setErrors(error);
+    if(formName === 'Product'){
+      let title = params.id ? `Edit ${formName}` : `Add ${formName}`;
+      setTitle(title);
+      if (params.id) {
+        axiosApi
+          .post(`${url}/search/`, { _id: params.id })
+          .then((response) => {
+            if (response.length) {
+              setdata({ ...data, ...response[0] });
+              return;
+            }
+            setdata(data);
+
+          })
+          .catch((err) => {
+            snack.handleError('unable to fetch data');
+            setdata(data);
+          });
+      }
+    }
+  }, [params.id,url,formName]);
+
+  useEffect(() => {
+    const defaultTouch = defaultDerived('touched');
+    const error = defaultDerived('error');
+    const data = defaultDerived('data');
+    setdata(data);
+    setTouched(defaultTouch);
+    setErrors(error);
+    if(formName === 'Profile'){
+      let title = `Update ${formName}`
+      setTitle(title);
+      axiosApi
+      .get(`${url}/${auth.user._id}`,{},auth.isAuthorized)
+      .then((response) => {
+          if(response.address){
+          response.temp_address = (response['address']['temp_address'] &&  response['address']['temp_address'].join(',')) || ''
+          response.permanent_address = (response['address']['permanent_address'] &&  response['address']['permanent_address']) || ''
+        }
+        setdata({ ...data, ...response});
+      })
+      .catch((err) => {
+        snack.handleError('unable to fetch data');
+        setdata(data);
+      });
+    }
+  }, [url,auth.user._id,formName,auth.isAuthorized,defaultDerived])
+
+
 
   const handleChange = (e,addData) => {
     let {name, value, type, checked, files } = e.target;
@@ -266,7 +268,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
           </Typography>
         )}
         <form
-          className={classes.form + ' ' + formclass}
+          className={`${classes.form} ${formclass}`}
           noValidate
           onSubmit={handleSubmit}
         >
@@ -274,7 +276,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
             {form.map((field, index) =>
               field.type === undefined || field.type === 'number' ? (
                 <InputComponent
-                  key={field.key + '-' + index}
+                  key={`${field.key}-${index}`}
                   name={field.key}
                   label={field.label}
                   type={field.type}
@@ -336,6 +338,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
               classname={` btn btn-${className}`}
               value={title}
               options={options}
+              disabled = {isTouched}
             />
           </Grid>
         </form>

@@ -34,6 +34,7 @@ ul {
   
   /* <li> */
   .nav-item {
+    position: relative;
     width: calc($options-size * 0.8);
     display: flex;
     align-items: center;
@@ -144,3 +145,18 @@ ul {
     transform: translateX(110%);
     transition: all $speed ease;
   }
+
+  //cart count
+  .cart-count{
+    position:absolute;
+    top:2px;
+    right:-5px;
+    width:25px;
+    height:25px;
+    border-radius: 50%;
+    background-color:$red;
+    color:$white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}

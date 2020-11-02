@@ -15,11 +15,15 @@ const showError = (msg:string) => {
 }
 //handle error
 const handleError = (error) => {
+    console.log(error)
     let defaultMessage = 'something went wrong'
     if(error && error.message){
         defaultMessage = error.message;
     }
-    showError(defaultMessage)
+    if(error && error.data && error.data.message){
+        defaultMessage = error.data.message;
+    }
+    showError(defaultMessage);
 
 }
 

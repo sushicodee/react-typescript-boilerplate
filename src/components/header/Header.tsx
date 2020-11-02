@@ -11,21 +11,15 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Header.scss';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, Theme, fade, createStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import clsx from 'clsx';
-import ProductSearch from 'components/dashboard/product/product=search/ProductSearch';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import Notification from './notification/NotificationComponent';
-import Profile from './profile/Profile';
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import OptionsTray from './optionsTray/OptionsTray';
 import { fetchCategories } from 'actions/products/productActions';
-import ThemeMode from 'components/common/Theme/Theme';
 // import {ArrowBack} from '@material-ui/icons';
 
 interface IHeaderLink {
@@ -75,7 +69,6 @@ createStyles({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -90,18 +83,17 @@ createStyles({
 );
 
 const Header: React.FC<IProps> = (props) => {
-  const history = useHistory();
   const classes = useStyles();
-  const product = useSelector(state => state.product)
+  // const product = useSelector(state => state.product)
   const dispatch = useDispatch();
   const [toggle, settoggle] = useState(false);
-  const {categories} = product;
-  const [subCategory, setSubCategory] = useState([{}]);
-  const [allData, setAllData] = useState([]);
+  // const {categories} = product;
+  // const [subCategory, setSubCategory] = useState([{}]);
 
   const { isLoggedin } = props;
   const headerLinks: IHeaderLink[] = [
     { name: 'Home', path: '/', iconName: 'home' },
+    { name: 'Dashboard', path: '/dashboard', iconName: 'dashboard' },
     { name: 'About', path: '/about', iconName: 'about' },
     { name:'divider', path:'',iconName:''},
     { name: 'Add Product', path: '/add-product', iconName: 'add' },
@@ -110,32 +102,12 @@ const Header: React.FC<IProps> = (props) => {
   ];
 
   useEffect(() => {
-    // loadCategories();
     dispatch(fetchCategories())
   }, []);
-
-  // const loadCategories = async () => {
-  //   axiosApi
-  //     .post('/product/search', {}, {}, false)
-  //     .then((response: any) => {
-  //       setAllData(response);
-  //       let categories: any = [];
-  //       (response || []).forEach((product: any) => {
-  //         if (categories.indexOf(product.category) === -1) {
-  //           categories.push(product.category);
-  //         }
-  //       });
-  //       setCategory(categories);
-  //     })
-  //     .catch((err) => {
-  //       Snackbar.handleError(err);
-  //     });
-  // };
 
   return (
     <>
       <AppBar color = 'transparent' className='header-wrapper'>
-       {/* <ThemeMode/> */}
         <Toolbar className="header-container">
           <>
             {isLoggedin && (
@@ -193,7 +165,7 @@ const Header: React.FC<IProps> = (props) => {
         >
       
           <SwipeableDrawer
-            className={classes.fullList+' '+'navbar-wrapper'}
+            className={`${classes.fullList} navbar-wrapper`}
             anchor={'left'}
             open={toggle}
             onClose={() => settoggle(false)}
@@ -202,7 +174,7 @@ const Header: React.FC<IProps> = (props) => {
             <div className ='wrapper'>
             {headerLinks.map(({ name, path, iconName },index) => (
               name === 'divider'?<Divider key ={name + index}/>:
-              <List key={name} className={classes.list+' '+'header-link'}>
+              <List key={name} className={`${classes.list} header-link`}>
                 <Link key ={name} to={path} onClick={() => settoggle(false)}>
                   <ListItem>
                     <ListItemIcon>
@@ -223,8 +195,4 @@ const Header: React.FC<IProps> = (props) => {
     </>
   );
 };
-const mapDispatchToProps = dispatch => ({
- 
-})
-
 export default (Header)
