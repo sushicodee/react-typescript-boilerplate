@@ -186,7 +186,7 @@ export class Login extends Component<IProps, IState> {
                       ...this.state.errors,
                       errorMessage:{
                         ...this.state.errors.errorMessage,
-                        'loginError':this.props.auth.errorMessage}}})
+                        loginError:this.props.auth.errorMessage}}})
           })
         }
     );
