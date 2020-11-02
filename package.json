@@ -41,11 +41,7 @@
     "use-immer": "^0.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
-    "format": "prettier --write src/**/*.ts{,x}"
+    "start": "node server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
