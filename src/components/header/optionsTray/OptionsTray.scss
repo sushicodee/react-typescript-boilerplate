@@ -35,7 +35,8 @@ ul {
   /* <li> */
   .nav-item {
     position: relative;
-    width: calc($options-size * 0.8);
+    width: 48px;
+    // width: calc($options-size * 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
