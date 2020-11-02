@@ -1,0 +1,17 @@
+.not-found-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  background-color: rgba(0, 0, 0, 0.89);
+}
+
+.not-found-container h3 {
+  position: absolute;
+  margin-top: 50vh;
+}
+/*# sourceMappingURL=NotFound.css.map */

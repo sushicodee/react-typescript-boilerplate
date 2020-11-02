@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,qBAAqB,CAAA;EACjB,WAAW,EAAC,IAAI;EAChB,cAAc,EAAE,IAAI;EACpB,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;CAC1B",
+    "sources": [
+        "ProductSearchComponent.scss"
+    ],
+    "names": [],
+    "file": "ProductSearchComponent.css"
+}

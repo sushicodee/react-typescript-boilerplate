@@ -1,0 +1,9 @@
+.form-field-error {
+  border-block-color: #e71111;
+}
+
+.error-span {
+  color: #e71111;
+  height: 12px;
+}
+/*# sourceMappingURL=LoginComponent.css.map */

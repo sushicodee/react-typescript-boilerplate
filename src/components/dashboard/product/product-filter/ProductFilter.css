@@ -1,0 +1,12 @@
+.product-search-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  border-bottom: 4px solid rgba(65, 65, 65, 0.733);
+}
+
+.product-search-wrapper .product-search-container {
+  width: 50%;
+}
+/*# sourceMappingURL=ProductFilter.css.map */

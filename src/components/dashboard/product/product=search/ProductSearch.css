@@ -1,0 +1,50 @@
+.main-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.MuiListItem-gutters {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0;
+}
+
+.MuiCollapse-wrapper {
+  width: 100%;
+}
+
+.btn-title {
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.cat-link {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  line-height: 20px;
+  border-bottom: 1px solid #ccc;
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+.cat-link:last-child {
+  border: none;
+}
+
+.cat-link:hover {
+  font-size: 20px;
+  background: rgba(0, 110, 255, 0.87);
+  color: white;
+}
+/*# sourceMappingURL=ProductSearch.css.map */

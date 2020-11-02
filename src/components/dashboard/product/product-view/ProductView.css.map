@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,uBAAuB,CAAA;EACnB,KAAK,EAAC,IAAI;EACV,OAAO,EAAC,IAAI;EACZ,cAAc,EAAE,MAAM;CAIzB;;AAPD,AAII,uBAJmB,CAInB,GAAG,CAAA;EACC,MAAM,EAAC,IAAI;CACd",
+    "sources": [
+        "ProductView.scss"
+    ],
+    "names": [],
+    "file": "ProductView.css"
+}

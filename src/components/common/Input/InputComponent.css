@@ -1,0 +1,10 @@
+.form-field-show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.form-field-hide {
+  display: none;
+}
+/*# sourceMappingURL=InputComponent.css.map */

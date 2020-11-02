@@ -1,0 +1,22 @@
+.dashboard {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  -ms-grid-rows: 50px (250px)[3];
+      grid-template-rows: 50px repeat(3, 250px);
+  grid-auto-rows: 250px;
+  grid-gap: 20px;
+  height: 100%;
+}
+
+.dashboard .navigation {
+  grid-column: 1/-1;
+  padding: 12px;
+}
+
+.dashboard .dash-item {
+  max-height: 300px;
+  padding: 12px;
+}
+/*# sourceMappingURL=Dashboard.css.map */

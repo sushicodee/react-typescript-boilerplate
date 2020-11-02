@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,iBAAiB,CAAA;EACb,aAAa,EAAC,GAAG;EACjB,gBAAgB,ECAV,wBAAwB;CDCjC",
+    "sources": [
+        "NotificationComponent.scss",
+        "../../../styles/_variables.scss"
+    ],
+    "names": [],
+    "file": "NotificationComponent.css"
+}

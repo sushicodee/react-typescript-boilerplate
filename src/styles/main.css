@@ -3,6 +3,37 @@
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.core-app-wrapper {
+  padding-top: 64px;
+}
+
+/* mobile */
+@media (min-width: 375px) {
+  .core-app-wrapper {
+    margin: 0px 16px 0px 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .core-app-wrapper {
+    width: 43.75em;
+    margin: auto;
+  }
+  .core-app-wrapper .card-wrapper button {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .core-app-wrapper {
+    width: 54.8169em;
+  }
+  .core-app-wrapper .card-wrapper button {
+    font-size: .5em;
+  }
 }
 
 .header-container {
@@ -12,11 +43,43 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.89);
-  color: rgba(255, 255, 255, 0.897);
 }
 
-.header-container .menu-button {
-  color: rgba(255, 255, 255, 0.897);
+a {
+  color: rgba(0, 0, 0, 0.89);
+  padding: 12px 16px;
+}
+
+.header-link {
+  padding: 0 16px;
+}
+
+.logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.options-tray {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.options-tray button {
+  margin-left: 5px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+}
+
+.options-tray button:hover {
+  background-color: rgba(65, 65, 65, 0.733);
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
+.options-tray button .MuiButton-label {
+  width: 30px;
 }
 /*# sourceMappingURL=main.css.map */

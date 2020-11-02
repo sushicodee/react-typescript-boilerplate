@@ -1,0 +1,61 @@
+.main-menu-wrapper {
+  width: 100%;
+  min-width: 150px;
+}
+
+.product-search-container {
+  padding: 8px;
+}
+
+.menu-item-selected {
+  color: white;
+  background-color: #00a2ff !important;
+}
+
+.menu-item:hover {
+  color: white;
+}
+
+.menu-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 80px;
+  padding: 0 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.menu-info .info-selected {
+  width: 80%;
+}
+
+.menu-info .clear-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.selected-names-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.selected-name-span {
+  background-color: rgba(0, 110, 255, 0.87);
+  padding: 2px 5px;
+  border-radius: 5px;
+  margin-bottom: 2px;
+  margin-right: 2px;
+  color: white;
+  text-overflow: ellipsis;
+}
+
+.custom-select-btn {
+  background-color: rgba(65, 65, 65, 0.733);
+}
+/*# sourceMappingURL=CustomSelect.css.map */

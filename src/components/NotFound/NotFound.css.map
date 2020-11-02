@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,oBAAoB,CAAC;EACjB,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,aAAa,EAAE,MAAM;EACrB,gBAAgB,ECLL,mBAAmB;CDYjC;;AAXD,AAOI,oBAPgB,CAOhB,EAAE,CAAA;EACE,QAAQ,EAAE,QAAQ;EAClB,UAAU,EAAC,IAAI;CAClB",
+    "sources": [
+        "NotFound.scss",
+        "../../styles/_variables.scss"
+    ],
+    "names": [],
+    "file": "NotFound.css"
+}
