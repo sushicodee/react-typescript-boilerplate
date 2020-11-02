@@ -1,7 +1,7 @@
 @import './../../../styles/variables';
 
 .form-field-error{
-    border-block-color:$error-color
+    border-color:$error-color;
 }
 
 .error-span{

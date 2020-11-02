@@ -208,8 +208,7 @@ export class Login extends Component<IProps, IState> {
       isError ||
       Object.values(touched).filter((data) => data === false).length !== 0;
     return (
-      //table
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className='container'>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
