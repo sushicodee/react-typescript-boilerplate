@@ -144,7 +144,6 @@ export class Login extends Component<IProps, IState> {
       );
       return;
     }
-    console.log(name,value)
     this.setState(
       (prevState) => ({
         ...prevState,
@@ -198,7 +197,6 @@ export class Login extends Component<IProps, IState> {
     const {
       options: { rememberMe },
       errors: { isError, errorMessage },
-      // errors: { isError},
       touched,
     } = this.state;
     const { isSubmitting } = this.props.auth;
