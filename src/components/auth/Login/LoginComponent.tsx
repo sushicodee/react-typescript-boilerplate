@@ -237,7 +237,6 @@ export class Login extends Component<IProps, IState> {
               autoComplete="username"
               autoFocus
               onChange={(e: any) => this.handleChange(e)}
-              error={errorMessage.username}
             />
             <Grid className="error-span">
               {errorMessage.username && errorMessage.username}
@@ -254,7 +253,6 @@ export class Login extends Component<IProps, IState> {
               id="password"
               autoComplete="current-password"
               onChange={(e: any) => this.handleChange(e)}
-              error={errorMessage.password}
             />
             <Grid className="error-span">
               {errorMessage.password} {errorMessage.loginError}
