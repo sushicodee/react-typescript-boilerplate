@@ -18,7 +18,7 @@ import { Button } from '@material-ui/core';
 function ProductViewComponent(props) {
   const dispatch = useDispatch(); 
   const product = useSelector(state => state.product)
-  // const {products} = product
+  const {products} = product
   const history = useHistory();
   const imageurl = process.env.REACT_APP_IMAGE_URL;
   const [columns, setColumns]: any = useState([

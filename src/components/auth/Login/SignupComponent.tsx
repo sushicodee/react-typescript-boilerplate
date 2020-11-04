@@ -155,7 +155,7 @@ class SignupComponent extends Component<IProps, IState> {
               ...this.state.errors,
               errorMessage:{
                 ...this.state.errors.errorMessage,
-                'loginError':err.message}}})
+                loginError:err.message}}})
       })
       .finally(() => {
         this.setState({
