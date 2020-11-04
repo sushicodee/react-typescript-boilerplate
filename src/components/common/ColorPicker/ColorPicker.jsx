@@ -58,8 +58,9 @@ function ColorPicker({
     <div className="color-picker-container">
       <h3>Select Colors</h3>
       <div className="select-list">
-        {Object.entries(colors).map((data) => (
+        {Object.entries(colors).map((data,index) => (
           <span
+            key = {index}
             name={name}
             type={type}
             value={selected}

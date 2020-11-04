@@ -54,6 +54,7 @@ function CustomSelect({ queryName, label, options, multiple, filterKey }) {
 
   //resize
   React.useEffect(() => {
+    setWidth(ref.current.clientWidth + 'px');
     const resizeEvent = () => {
       setWidth(ref.current.clientWidth + 'px');
     }
@@ -108,7 +109,7 @@ function CustomSelect({ queryName, label, options, multiple, filterKey }) {
       }
     };
     changeFilter();
-  }, [selectedIndex,filterCondition.count,multiple,filterKey,queryName]);
+  }, [selectedIndex,multiple,filterKey,queryName]);
 
   const selectedName = selected;
   return (

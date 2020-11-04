@@ -92,9 +92,10 @@ export default function ProductCardDetail(props) {
             </Typography>
             <Box className="colors">
               {/* <span className="color" color="blue"></span> */}
-              <span className="color active" color="black"></span>
+              {data.color && data.color.map(color => <span className='color' color ={color}></span>)}
+              {/* <span className="color active" color="black"></span>
               <span className="color" color="red"></span>
-              <span className="color" color="rose-gold"></span>
+              <span className="color" color="rose-gold"></span> */}
             </Box>
           </Box>
           <Box className="size-container">

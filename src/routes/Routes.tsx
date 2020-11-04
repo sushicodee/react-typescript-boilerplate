@@ -14,6 +14,7 @@ import ProductSearchComponent from 'components/dashboard/product/product=search/
 import MessageComponent from 'components/dashboard/messages/MessageComponent';
 import ProductCardDetail from 'components/common/Cards/product/ProductCardDetail';
 import Cart from 'components/dashboard/cart/Cart';
+import About from 'components/dashboard/about/About';
 
 const Routes = () => {
   return (
@@ -25,6 +26,7 @@ const Routes = () => {
         <PublicRoutes path="/signup" component={SignupComponent} />
         <ProtectedRoutes path ='/dashboard' component = {Dashboard}/>
         <ProtectedRoutes path ='/add-product/:id' component = {ProductForm}/>
+        <ProtectedRoutes path ='/about' component = {About}/>
         <ProtectedRoutes path ='/add-product' component = {ProductForm}/>
         <ProtectedRoutes path ='/my-products' component = {ProductView}/>
         <ProtectedRoutes path ='/messages' component = {MessageComponent}/>

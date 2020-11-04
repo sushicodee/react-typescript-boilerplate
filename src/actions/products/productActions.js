@@ -26,7 +26,7 @@ export const fetchDetails = (id) => async(dispatch) => {
     dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
   }
   catch (err) {
-
+    
   }
   finally{
     dispatch(setLoading(false))

@@ -32,7 +32,7 @@ export default function ProductCard({ data }) {
           className="product-image"
           component="img"
           alt={data && data.name}
-          height="370"
+          // height="370"
           width="370"
           image={
             data && data.image
@@ -51,11 +51,11 @@ export default function ProductCard({ data }) {
           </Typography>
         </Box>
         <Box className = 'price-wrapper'>
-        <Box className="card-info-price">
-            <Typography component="span">
+        {/* <Box className="card-info-price"> */}
+            <Typography component="span" className="card-info-price">
               Rs {NumberWithCommas(data ? data.price:0)}
             </Typography>
-        </Box>
+        {/* </Box> */}
         </Box>
         </CardContent>
       </Box>

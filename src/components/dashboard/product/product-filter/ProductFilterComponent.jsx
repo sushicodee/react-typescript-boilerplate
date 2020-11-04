@@ -12,7 +12,7 @@ function ProductFilterComponent() {
     >
         <CustomSelect filterKey = {'options'} queryName={'sort'} label = {'Sort'} options= {sortItems} multiple = {false}/>
         <CustomSelect filterKey = {'filters'} queryName={'category'} label = {'Category'} options= {category} multiple = {true}/>
-        <CustomSelect filterKey = {'filters'} queryName={'brand'} label = {'Brand'} options= {brand} multiple = {true}/>
+        {/* <CustomSelect filterKey = {'filters'} queryName={'brand'} label = {'Brand'} options= {brand} multiple = {true}/> */}
         {/* <CustomSelect queryName = {'color'} label = {'Color'} options = {color} multiple = {false}/> */}
     </div>
   );
