@@ -109,7 +109,7 @@ function CustomSelect({ queryName, label, options, multiple, filterKey }) {
       }
     };
     changeFilter();
-  }, [selectedIndex,filterCondition.count,filterKey,queryName]);
+  }, [selectedIndex,multiple,filterKey,queryName]);
 
   const selectedName = selected;
   return (

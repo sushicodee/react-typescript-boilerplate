@@ -141,7 +141,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
         setdata(data);
       });
     }
-  }, [url,auth.user._id,formName,auth.isAuthorized,defaultDerived])
+  }, [url,formName])
 
 
 
@@ -287,7 +287,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
                 />
               ) : field.type === 'file' ? (
                 <FileUploadButton
-                  key={field.key + '-' +index}
+                  key={`${field.key}-${index}`}
                   name={data._id && !data.image ? 'newimage' : field.key}
                   label={data._id ? 'Update Photo' : field.label}
                   value={data._id && !data.image ? data['newimage'] : data[field.key]}
@@ -297,7 +297,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
                 />
               ) : field.type === 'date' ? (
                 <DatePicker
-                  key={field.key + '-' + index}
+                  key={`${field.key}-${index}`}
                   name={field.key}
                   label={field.label}
                   value={data[field.key]}
@@ -306,7 +306,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
                 />
               ) : field.type === 'boolean' ? (
                 <CheckboxComponent
-                  key={field.key + '-' + index}
+                  key={`${field.key}-${index}`}
                   name={field.key}
                   label={field.label}
                   value={data[field.key] || false}
@@ -315,7 +315,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
                 />
               ) : field.type === 'select' ? (
                 <SelectComponent
-                  key={field.key + '-' + index}
+                  key={`${field.key}-${index}`}
                   name={field.key}
                   label={field.label}
                   value={data[field.key]}
@@ -325,7 +325,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
                 />
               ) : field.type === 'array' ? (
                 <ColorPicker
-                  key={field.key + '-' + index}
+                  key={`${field.key}-${index}`}
                   name={field.key}
                   label={field.label}
                   value={data[field.key]}

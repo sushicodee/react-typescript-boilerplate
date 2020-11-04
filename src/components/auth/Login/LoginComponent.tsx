@@ -181,12 +181,13 @@ export class Login extends Component<IProps, IState> {
                 history.push(`/dashboard`)
           })
           .catch(err =>{
-            this.setState({...this.state,
-                    errors:{
-                      ...this.state.errors,
-                      errorMessage:{
-                        ...this.state.errors.errorMessage,
-                        loginError:this.props.auth.errorMessage}}})
+            this.setState({
+                ...this.state,
+                errors:{
+                  ...this.state.errors,
+                  errorMessage:{
+                     ...this.state.errors.errorMessage,
+                     loginError:this.props.auth.errorMessage}}})
           })
         }
     );

@@ -21,12 +21,13 @@ import {
 
 export const fetchDetails = (id) => async(dispatch) => {
   try{
+    debugger;
     dispatch(setLoading(true))
     const data = await axiosApi.get(`/product/details/${id}`)
     dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
   }
   catch (err) {
-
+    
   }
   finally{
     dispatch(setLoading(false))

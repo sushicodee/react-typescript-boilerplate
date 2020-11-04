@@ -23,7 +23,7 @@ const initialState = {
   searchCount:0,
   isLoading: false,
   currentPage: 1,
-  perPage: 10,
+  perPage: 5,
   categories: [],
   subCategories: [],
   filterCondition: {filters:{},options:{},count:0},
