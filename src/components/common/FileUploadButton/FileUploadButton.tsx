@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import './FileUploadButton.scss'
@@ -20,7 +20,26 @@ const useStyles = makeStyles((theme: Theme) =>
 const FileUploadButton = ({name,label,value,props, handlechange,error }) => {
   const classes = useStyles();
   const imageUrl = process.env.REACT_APP_IMAGE_URL;
-
+  const [image,setImage] = useState<File>()
+  const [preview,setPreview] = useState<string>()
+  const imageInputRef = useRef<HTMLInputElement>();
+  const handleImageChange = (e) => {
+    e.preventDefault();
+    setImage(e.target.files[0])
+    handlechange(e);
+  }
+  useEffect(()=>{
+    if(image){
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string)
+      }
+      reader.readAsDataURL(image)
+    }else{
+      setPreview('');
+    }
+  }
+  ,[image])
   return (
     <div className={classes.root +' '+'upload-button-wrapper'} key={name}>
       <input
@@ -30,15 +49,16 @@ const FileUploadButton = ({name,label,value,props, handlechange,error }) => {
         id="contained-button-file"
         multiple={props.multiple || false}
         type="file"
-        onChange={handlechange}
+        onChange={handleImageChange}
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained" color="primary" component="span">
           <Icon>
              add
           </Icon>
-          {value &&
-          <img className = {`image-overlay ${props.round ?'image-overlay-round':null}`} src = {`${imageUrl}/${value}`}>
+          {preview &&
+          // <img className = {`image-overlay ${props.round ?'image-overlay-round':null}`} src = {`${imageUrl}/${value}`}
+          <img className = {`image-overlay ${props.round ?'image-overlay-round':null}`} src = {preview}>
           </img>
         }
         </Button>
