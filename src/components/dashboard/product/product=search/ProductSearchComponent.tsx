@@ -20,21 +20,23 @@ const ProductSearchComponent = () => {
   useEffect(() => {
     const loadData = () => {
       const conditionData = { ...filterCondition };
-      console.log('load data insiede search');
       dispatch(searchProducts(conditionData, { currentPage, perPage ,...params}));
     };
     loadData();
   }, [currentPage, perPage,params,filterCondition.count]);
   return (
     <>
-      <div>
+        <ProductFilterComponent />
         {!isLoading && searchResults.length === 0 && (
-          <Grid container className=" no-products-found container" xs={12}>
+        <>
+          <Grid item xs={3}></Grid>
+          <Grid item className=" no-products-found container" xs={12}>
             No Products Found
           </Grid>
+          <Grid item xs={3}></Grid>
+        </>
         )}
-        <ProductFilterComponent />
-        <Grid container spacing={4} className="product-container">
+        <Grid container  spacing={3} className="product-container">
           {isLoading &&
             Array(perPage)
               .fill('')
@@ -46,7 +48,6 @@ const ProductSearchComponent = () => {
                   xs={12}
                   sm={6}
                   md={4}
-                  lg={3}
                 >
                   <Skeleton>
                     <ProductCard data={val} />
@@ -68,7 +69,6 @@ const ProductSearchComponent = () => {
               </Grid>
             ))}
         </Grid>
-      </div>
       {searchResults && searchResults.length > 0 && (
         <Grid container spacing={4} className="pagination-container container">
           <PaginationComponent

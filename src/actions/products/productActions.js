@@ -16,12 +16,13 @@ import {
   SET_PRODUCT_ERROR,
   FETCH_ATTRIBUTES,
   FETCH_PRODUCT_DETAILS,
-  FETCH_ALL_PRODUCTS
+  FETCH_ALL_PRODUCTS,
+  LIKE_PRODUCT,
+  UNLIKE_PRODUCT
 } from './types';
 
 export const fetchDetails = (id) => async(dispatch) => {
   try{
-    debugger;
     dispatch(setLoading(true))
     const data = await axiosApi.get(`/product/details/${id}`)
     dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
@@ -107,6 +108,25 @@ export const deleteProduct = (id, isSecure) => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
+
+export const likeProduct = (_id, isSecure) => async (dispatch) => {
+  try {
+    const data = await axiosApi.patch(`/product/like`,{_id},{}, isSecure);
+    dispatch({ type: LIKE_PRODUCT, payload: data });
+  } catch (err) {
+  } finally {
+  }
+};
+
+export const unlikeProduct = (_id, isSecure) => async (dispatch) => {
+  try {
+    const data = await axiosApi.patch(`/product/unlike`,{_id},{}, isSecure);
+    dispatch({ type: UNLIKE_PRODUCT, payload: data });
+  } catch (err) {
+  } finally {
+  }
+};
+
 
 export const searchProducts = (conditionData = {},options = {}) => async (dispatch) => {
   try {

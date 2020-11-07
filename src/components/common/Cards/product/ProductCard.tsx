@@ -13,17 +13,31 @@ import { useHistory } from 'react-router-dom';
 import './ProductCard.scss';
 import {useDispatch} from 'react-redux';
 import { addToCart } from 'actions/cart/cartActions';
+import { likeProduct, unlikeProduct } from 'actions/products/productActions';
+import {useSelector} from 'react-redux';
 
 export default function ProductCard({ data }) {
   // const classes = useStyles();
   const imageurl = process.env.REACT_APP_IMAGE_URL;
+  const auth = useSelector(state => state.auth)
+  const {user:{_id},isLoggedin} = auth;
   const history = useHistory();
   const dispatch = useDispatch();
+
   const handleDetailPage = () => 
     {
         history.push(`details/${data._id}`)
     }
+  let isLoved = data.loves && data.loves.includes(_id);
+  let isLiked = data.loves && data.loves.includes(_id);
+  
+  const handleLove = () => {
+    isLiked = !isLiked;
+    isLoved ? dispatch(unlikeProduct(data._id,isLoggedin)) : dispatch(likeProduct(data._id,isLoggedin))
+  }  
+
   return (
+    data &&
     <Card className = 'product-card-container container'>
       <CardActionArea>
       <Box className='card-wrapper' onClick = {handleDetailPage}>
@@ -31,23 +45,23 @@ export default function ProductCard({ data }) {
         <CardMedia
           className="product-image"
           component="img"
-          alt={data && data.name}
+          alt={ data.name}
           // height="370"
           width="370"
           image={
-            data && data.image
-              ? `${imageurl}/${data && data.image}`
+             data.image
+              ? `${imageurl}/${ data.image}`
               : 'https://commercial.bunn.com/img/image-not-available.png'
           }
-          title={data && data.name}
+          title={ data.name}
         />
-        <span className="brand">{data && data.brand}</span>
+        <span className="brand">{ data.brand}</span>
       </Box>
       <CardContent className="card-info">
         {/* <span className="card-info-new"> new</span> */}
         <Box className="card-info-name">
           <Typography  variant="h5" component="h2">
-            {data && data.name}
+            { data.name}
           </Typography>
         </Box>
         <Box className = 'price-wrapper'>
@@ -61,8 +75,9 @@ export default function ProductCard({ data }) {
       </Box>
       </CardActionArea>
         <CardActions className ='card-actions-wrapper'>
-          <Button className="love">
-            <Icon>favorite_border</Icon>
+          <Button className={`${isLiked? 'love-ed' : 'love'}`} onClick={handleLove}>
+            {isLiked && <Icon>favorite_border</Icon>}
+            {!isLiked && <Icon>favorite</Icon>}
           </Button>
           <Button className="buy" onClick = {() => dispatch(addToCart(data._id))}>
             <Icon>add_shopping_cart</Icon>
