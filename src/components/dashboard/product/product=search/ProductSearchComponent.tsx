@@ -8,6 +8,7 @@ import { searchProducts } from 'actions/products/productActions';
 import PaginationComponent from 'components/common/Pagination/PaginationComponent';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ProductFilterComponent from '../product-filter/ProductFilterComponent';
+import ProductCardSkeleton from 'components/common/Cards/product/Skeletons/ProductCardSkeleton';
 
 const ProductSearchComponent = () => {
   const dispatch = useDispatch();
@@ -49,9 +50,7 @@ const ProductSearchComponent = () => {
                   sm={6}
                   md={4}
                 >
-                  <Skeleton>
-                    <ProductCard data={val} />
-                  </Skeleton>
+                 <ProductCardSkeleton/>
                 </Grid>
               ))}
           {searchResults.length > 0 &&

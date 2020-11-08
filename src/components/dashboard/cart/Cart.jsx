@@ -29,11 +29,11 @@ function Cart() {
       <>
       <Typography variant="h5">My Cart</Typography>
       <Grid container direction="column" className="cart">
+      {cartItems &&
       <Grid container className="cart-list ">
-        {cartItems &&
-          cartItems.map((item) => {
+          {cartItems.map((item) => {
             return (
-              <Grid item xs={12} className = 'cart-list-item container'>
+              <Grid item xs={12} sm ={7} className = 'cart-list-item container'>
                 <CardMedia
                   className="cart-list-item-image"
                   component="img"
@@ -66,11 +66,13 @@ function Cart() {
                 </div>
               </Grid>
             );
+                
           })}
-      </Grid>
+          </Grid>
+      }
       {cartItems.length === 0 ? (
-        <Grid item className="cart-empty container">
-          <Typography variant="h6">Cart is Empty</Typography>
+        <Grid item xs ={12}  className="cart-empty container">
+          <Typography variant="h6">OOPS! Your Cart is Empty</Typography>
           <Button
             variant="contained"
             color="secondary"
@@ -81,7 +83,7 @@ function Cart() {
         </Grid>
       ) : (
         <div className="cart-checkout">
-        <Grid item className='details' >
+        <Grid container  className='details' >
           <Typography>Items in Cart : {cartItems.length}</Typography>
           <Typography variant="h6">
             {' '}

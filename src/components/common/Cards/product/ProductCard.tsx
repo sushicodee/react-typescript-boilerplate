@@ -23,18 +23,16 @@ export default function ProductCard({ data }) {
   const {user:{_id},isLoggedin} = auth;
   const history = useHistory();
   const dispatch = useDispatch();
+  const isLoved = data.loves && data.loves.includes(_id);
 
   const handleDetailPage = () => 
     {
         history.push(`details/${data._id}`)
     }
-  let isLoved = data.loves && data.loves.includes(_id);
-  let isLiked = data.loves && data.loves.includes(_id);
   
   const handleLove = () => {
-    isLiked = !isLiked;
-    isLoved ? dispatch(unlikeProduct(data._id,isLoggedin)) : dispatch(likeProduct(data._id,isLoggedin))
-  }  
+    isLoved ? dispatch(unlikeProduct(_id,data,isLoggedin)) : dispatch(likeProduct(_id,data,isLoggedin))
+  } 
 
   return (
     data &&
@@ -75,9 +73,9 @@ export default function ProductCard({ data }) {
       </Box>
       </CardActionArea>
         <CardActions className ='card-actions-wrapper'>
-          <Button className={`${isLiked? 'love-ed' : 'love'}`} onClick={handleLove}>
-            {isLiked && <Icon>favorite_border</Icon>}
-            {!isLiked && <Icon>favorite</Icon>}
+          <Button className={`${isLoved? 'love-ed' : 'love'}`} onClick={handleLove}>
+            {!isLoved && <Icon>favorite_border</Icon>}
+            {isLoved && <Icon>favorite</Icon>}
           </Button>
           <Button className="buy" onClick = {() => dispatch(addToCart(data._id))}>
             <Icon>add_shopping_cart</Icon>

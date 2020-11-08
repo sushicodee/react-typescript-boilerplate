@@ -101,7 +101,6 @@ export const deleteProduct = (id, isSecure) => async (dispatch) => {
     dispatch(setLoading(true));
     const data = await axiosApi.delete(`/product/${id}`,{}, isSecure);
     dispatch({ type: DELETE_PRODUCT, payload: data });
-    
   } catch (err) {
     Snackbar.handleError(err);
   } finally {
@@ -109,20 +108,47 @@ export const deleteProduct = (id, isSecure) => async (dispatch) => {
   }
 };
 
-export const likeProduct = (_id, isSecure) => async (dispatch) => {
+export const likeProduct = (userId,prevData, isSecure,page = '') => async (dispatch) => {
+  const newData = {...prevData,loves:[...prevData.loves,userId]};
+  dispatch({ type: LIKE_PRODUCT, payload: newData});
+  if(page == 'productDetails'){
+    //can cause problem after adding projection todo
+    dispatch({type:FETCH_PRODUCT_DETAILS,payload:newData})
+  }
   try {
-    const data = await axiosApi.patch(`/product/like`,{_id},{}, isSecure);
+    const data = await axiosApi.patch(`/product/like`,{_id:prevData._id},{}, isSecure);
     dispatch({ type: LIKE_PRODUCT, payload: data });
+    if(page == 'productDetails'){
+      dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
+    }
+    Snackbar.showInfo(`${data.name} Added to Favorites`)
   } catch (err) {
+    dispatch({ type: LIKE_PRODUCT, payload: prevData });
+    if(page == 'productDetails'){
+      dispatch({type:FETCH_PRODUCT_DETAILS,payload:prevData})
+    }
   } finally {
   }
 };
 
-export const unlikeProduct = (_id, isSecure) => async (dispatch) => {
+export const unlikeProduct = (userId,prevData,isSecure,page = '') => async (dispatch) => {
+  const newData = {...prevData,loves:[...prevData.loves.filter(id => id!==userId)]};
+  dispatch({ type: UNLIKE_PRODUCT, payload: newData});
+  if(page == 'productDetails'){
+    //can cause problem after adding projection todo
+    dispatch({type:FETCH_PRODUCT_DETAILS,payload:newData})
+  }
   try {
-    const data = await axiosApi.patch(`/product/unlike`,{_id},{}, isSecure);
+    const data = await axiosApi.patch(`/product/unlike`,{_id:prevData._id},{}, isSecure);
     dispatch({ type: UNLIKE_PRODUCT, payload: data });
+    if(page == 'productDetails'){
+      dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
+    }
   } catch (err) {
+    dispatch({ type: UNLIKE_PRODUCT, payload: prevData});
+    if(page == 'productDetails'){
+      dispatch({type:FETCH_PRODUCT_DETAILS,payload:prevData})
+    }
   } finally {
   }
 };
