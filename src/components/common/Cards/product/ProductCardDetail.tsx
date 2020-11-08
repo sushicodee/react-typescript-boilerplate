@@ -10,7 +10,7 @@ import './ProductCardDetail.scss';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { NumberWithCommas } from 'components/utils/numbers/numbers';
-import { fetchDetails } from 'actions/products/productActions';
+import { fetchDetails, likeProduct, unlikeProduct } from 'actions/products/productActions';
 import Loader from 'components/common/loader/Loader';
 import { addToCart } from 'actions/cart/cartActions';
 
@@ -22,17 +22,25 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProductCardDetail(props) {
+export default function ProductCardDetail() {
   const classes = useStyles();
   const imageurl = process.env.REACT_APP_IMAGE_URL;
   const params = useParams();
   const dispatch = useDispatch();
-  const { id }: any = params;
-  // const [data,setData]:any = React.useState({});
   const data = useSelector((state) => state.product.productDetails);
+  const auth = useSelector((state) => state.auth);
+
+  const { id }: any = params;
+  const {user:{_id},isLoggedin} = auth;
+  const isLoved = data.loves && data.loves.includes(_id);
+  // const [data,setData]:any = React.useState({});
   React.useEffect(() => {
     dispatch(fetchDetails(id));
   }, [id]);
+
+  const handleLove = () => {
+    isLoved ? dispatch(unlikeProduct(_id,data,isLoggedin,'productDetails')) : dispatch(likeProduct(_id,data,isLoggedin,'productDetails'))
+  } 
 
   return data ? (
     <Box className={`${classes.root} card-detail-wrapper container`}>
@@ -57,8 +65,9 @@ export default function ProductCardDetail(props) {
           title={data.name}
         />
         <span className="brand">{data.brand && data.brand}</span>
-        <Button className="love">
-          <Icon>favorite_border</Icon>
+        <Button className={`${isLoved? 'love-ed' : 'love'}`} onClick={handleLove}>
+            {!isLoved && <Icon>favorite_border</Icon>}
+            {isLoved && <Icon>favorite</Icon>}
         </Button>
       </Box>
       <CardContent className="card-info">
@@ -90,7 +99,7 @@ export default function ProductCardDetail(props) {
               {/* <span className="color" color="blue"></span> */}
               {data.color &&
                 data.color.map((color) => (
-                  <span className="color" color={color}></span>
+                  <span key={color} className="color" color={color}></span>
                 ))}
               {/* <span className="color active" color="black"></span>
               <span className="color" color="red"></span>
