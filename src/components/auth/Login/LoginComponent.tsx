@@ -198,7 +198,6 @@ export class Login extends Component<IProps, IState> {
     const {
       options: { rememberMe },
       errors: { isError, errorMessage },
-      // errors: { isError},
       touched,
     } = this.state;
     const { isSubmitting } = this.props.auth;
@@ -210,8 +209,7 @@ export class Login extends Component<IProps, IState> {
       isError ||
       Object.values(touched).filter((data) => data === false).length !== 0;
     return (
-      //table
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className='container'>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -239,7 +237,6 @@ export class Login extends Component<IProps, IState> {
               autoComplete="username"
               autoFocus
               onChange={(e: any) => this.handleChange(e)}
-              error={errorMessage.username}
             />
             <Grid className="error-span">
               {errorMessage.username && errorMessage.username}
@@ -256,7 +253,6 @@ export class Login extends Component<IProps, IState> {
               id="password"
               autoComplete="current-password"
               onChange={(e: any) => this.handleChange(e)}
-              error={errorMessage.password}
             />
             <Grid className="error-span">
               {errorMessage.password} {errorMessage.loginError}

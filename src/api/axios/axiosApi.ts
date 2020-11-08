@@ -59,6 +59,19 @@ const put = (url, data = {}, { params = {} } = {}, isSecure) => {
   });
 };
 
+const patch = (url, data = {}, { params = {} } = {}, isSecure) => {
+  return new Promise((resolve, reject) => {
+    http
+      .patch(url, data, { headers: httpHeaders(isSecure) })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err.response);
+      });
+  });
+};
+
 const remove = (url, isSecure) => {
   return new Promise((resolve, reject) => {
     http
@@ -102,4 +115,4 @@ const uploadFile = (method, url, data, files) => {
   });
 };
 
-export const axiosApi = { get, post, put, remove, uploadFile };
+export const axiosApi = { get, post, put,patch, remove, uploadFile };

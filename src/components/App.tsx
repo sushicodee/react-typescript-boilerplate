@@ -19,13 +19,13 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Provider store={store}>
-        <MuiThemeProvider theme = {theme}>
+        {/* <MuiThemeProvider theme = {theme}> */}
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <Router>
             <Routes />
           </Router>
         </MuiPickersUtilsProvider>
-        </MuiThemeProvider>
+        {/* </MuiThemeProvider> */}
         <ToastContainer containerId="an id" draggable={false} />
       </Provider>
     </div>

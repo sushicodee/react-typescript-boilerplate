@@ -1,0 +1,65 @@
+.circle-icon i {
+  height: 20px;
+  width: 20px;
+}
+
+.profile-list {
+  width: 300px;
+  background-color: rgba(255, 255, 255, 0.815);
+  border: 1px solid #474a4d;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.profile-list li {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50px;
+  border-radius: 8px;
+  -webkit-transition: background 400ms;
+  transition: background 400ms;
+  padding: 0 20px;
+  color: #dadce1;
+}
+
+.profile-list li-enter {
+  position: absolute;
+  -webkit-transform: translate(-110%);
+          transform: translate(-110%);
+}
+
+.profile-list li-enter-active {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+  -webkit-transition: all 400ms ease-in-out;
+  transition: all 400ms ease-in-out;
+}
+
+.profile-list li-exit {
+  position: absolute;
+}
+
+.profile-list li-exit-enter {
+  -webkit-transform: translateX(-110%);
+          transform: translateX(-110%);
+  -webkit-transition: all 400ms ease-in-out;
+  transition: all 400ms ease-in-out;
+}
+
+.profile-list li a {
+  color: #dadce1;
+}
+
+.profile-list li a:hover {
+  color: #dddddd;
+}
+
+.profile-list li:hover {
+  background-color: #525457;
+}
+
+.MuiButton-textPrimary {
+  color: white;
+}
+/*# sourceMappingURL=Profile.css.map */

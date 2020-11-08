@@ -12,9 +12,10 @@ import {
   UPDATE_PRODUCT,
   FETCH_ATTRIBUTES,
   FETCH_PRODUCT_DETAILS,
-  FETCH_ALL_PRODUCTS
+  FETCH_ALL_PRODUCTS,
+  LIKE_PRODUCT,
+  UNLIKE_PRODUCT,
 } from 'actions/products/types';
-
 
 const initialState = {
   allProducts:[],
@@ -40,7 +41,6 @@ const productReducer = (draft, action) => {
       draft.products = action.payload;
       return;
     }
-
     case FETCH_ALL_PRODUCTS: {
       draft.allProducts = action.payload;
       return;
@@ -64,6 +64,7 @@ const productReducer = (draft, action) => {
         if (product._id === action.payload.__id) {
           return action.payload;
         }
+        return product;
       })
       return;
     }
@@ -74,11 +75,7 @@ const productReducer = (draft, action) => {
       return;
     }
 
-    case FETCH_SEARCH_PRODUCTS: {
-      draft.searchResults = action.payload.data;
-      draft.searchCount = action.payload.count;
-      return;
-    }
+  
     case SET_IS_LOADING: {
       draft.isLoading = action.payload;
       return;
@@ -137,6 +134,32 @@ const productReducer = (draft, action) => {
         attr[key] = [...new Set(attr[key])]
       })
       draft.attributes = attr;
+      return;
+    }
+    /* search products page */
+    case FETCH_SEARCH_PRODUCTS: {
+      draft.searchResults = action.payload.data;
+      draft.searchCount = action.payload.count;
+      return;
+    }
+
+    case LIKE_PRODUCT: {
+      draft.searchResults = draft.searchResults.map((product) => {
+        if (product._id === action.payload._id) {
+          return action.payload;
+        }
+        return product;
+      })
+      return;
+    }
+
+    case UNLIKE_PRODUCT: {
+      draft.searchResults = draft.searchResults.map((product) => {
+        if (product._id === action.payload._id) {
+          return action.payload;
+        }
+        return product;
+      })
       return;
     }
     default:

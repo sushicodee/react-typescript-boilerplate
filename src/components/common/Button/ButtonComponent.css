@@ -1,0 +1,42 @@
+.btn-edit {
+  background-color: #ff8100;
+  color: white;
+}
+
+.btn-edit-round {
+  border-radius: 50%;
+}
+
+.btn-edit:hover {
+  background-color: #ff4000;
+  color: white;
+}
+
+.btn-add {
+  background-color: #329932;
+  color: white;
+}
+
+.btn-add-round {
+  border-radius: 50%;
+}
+
+.btn-add:hover {
+  background-color: #198c19;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #ff3232;
+  color: white;
+}
+
+.btn-delete-round {
+  border-radius: 50%;
+}
+
+.btn-delete:hover {
+  background-color: #ff0000;
+  color: white;
+}
+/*# sourceMappingURL=ButtonComponent.css.map */

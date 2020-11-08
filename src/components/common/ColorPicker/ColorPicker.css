@@ -1,0 +1,50 @@
+.color-picker-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.color-picker-container .select-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.color-picker-container .select-list .color-picker-item {
+  width: 40px;
+  height: 20px;
+  margin: 5px;
+  border-radius: 1px solid #474a4d;
+}
+
+.color-picker-container .select-list .color-picker-item:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.color-picker-container .selected-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.color-picker-container .selected-list .color-picker-item {
+  width: 40px;
+  height: 20px;
+  margin: 5px;
+  border-radius: 1px solid #474a4d;
+}
+
+.color-picker-container .selected-list .color-picker-item:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+/*# sourceMappingURL=ColorPicker.css.map */
