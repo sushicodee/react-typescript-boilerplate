@@ -16,12 +16,13 @@ import {
   SET_PRODUCT_ERROR,
   FETCH_ATTRIBUTES,
   FETCH_PRODUCT_DETAILS,
-  FETCH_ALL_PRODUCTS
+  FETCH_ALL_PRODUCTS,
+  LIKE_PRODUCT,
+  UNLIKE_PRODUCT
 } from './types';
 
 export const fetchDetails = (id) => async(dispatch) => {
   try{
-    debugger;
     dispatch(setLoading(true))
     const data = await axiosApi.get(`/product/details/${id}`)
     dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
@@ -100,13 +101,58 @@ export const deleteProduct = (id, isSecure) => async (dispatch) => {
     dispatch(setLoading(true));
     const data = await axiosApi.delete(`/product/${id}`,{}, isSecure);
     dispatch({ type: DELETE_PRODUCT, payload: data });
-    
   } catch (err) {
     Snackbar.handleError(err);
   } finally {
     dispatch(setLoading(false));
   }
 };
+
+export const likeProduct = (userId,prevData, isSecure,page = '') => async (dispatch) => {
+  const newData = {...prevData,loves:[...prevData.loves,userId]};
+  dispatch({ type: LIKE_PRODUCT, payload: newData});
+  if(page == 'productDetails'){
+    //can cause problem after adding projection todo
+    dispatch({type:FETCH_PRODUCT_DETAILS,payload:newData})
+  }
+  try {
+    const data = await axiosApi.patch(`/product/like`,{_id:prevData._id},{}, isSecure);
+    dispatch({ type: LIKE_PRODUCT, payload: data });
+    if(page == 'productDetails'){
+      dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
+    }
+    Snackbar.showInfo(`${data.name} Added to Favorites`)
+  } catch (err) {
+    dispatch({ type: LIKE_PRODUCT, payload: prevData });
+    if(page == 'productDetails'){
+      dispatch({type:FETCH_PRODUCT_DETAILS,payload:prevData})
+    }
+  } finally {
+  }
+};
+
+export const unlikeProduct = (userId,prevData,isSecure,page = '') => async (dispatch) => {
+  const newData = {...prevData,loves:[...prevData.loves.filter(id => id!==userId)]};
+  dispatch({ type: UNLIKE_PRODUCT, payload: newData});
+  if(page == 'productDetails'){
+    //can cause problem after adding projection todo
+    dispatch({type:FETCH_PRODUCT_DETAILS,payload:newData})
+  }
+  try {
+    const data = await axiosApi.patch(`/product/unlike`,{_id:prevData._id},{}, isSecure);
+    dispatch({ type: UNLIKE_PRODUCT, payload: data });
+    if(page == 'productDetails'){
+      dispatch({type:FETCH_PRODUCT_DETAILS,payload:data})
+    }
+  } catch (err) {
+    dispatch({ type: UNLIKE_PRODUCT, payload: prevData});
+    if(page == 'productDetails'){
+      dispatch({type:FETCH_PRODUCT_DETAILS,payload:prevData})
+    }
+  } finally {
+  }
+};
+
 
 export const searchProducts = (conditionData = {},options = {}) => async (dispatch) => {
   try {

@@ -100,7 +100,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
       setTitle(title);
       if (params.id) {
         axiosApi
-          .post(`${url}/search/`, { _id: params.id })
+          .post(`${url}/search`, { _id: params.id },auth.isAuthorized)
           .then((response) => {
             if (response.length) {
               setdata({ ...data, ...response[0] });
