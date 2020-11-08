@@ -205,8 +205,8 @@ function ProductViewComponent(props) {
               // resolve();
               axiosApi
                 .put(`${url}/${newData._id}`, newData, {}, true)
-                .then((data: any) => {
-                  const dataUpdate = [...data];
+                .then((response: any) => {
+                  const dataUpdate = [...response.data];
                   const index = oldData.tableData.id;
                   dataUpdate[index] = newData;
                   setData([...dataUpdate]);

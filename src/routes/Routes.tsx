@@ -25,9 +25,9 @@ const Routes = () => {
         <PublicRoutes path="/login" component={LoginComponent} />
         <PublicRoutes path="/signup" component={SignupComponent} />
         <ProtectedRoutes path ='/dashboard' component = {Dashboard}/>
-        <ProtectedRoutes path ='/add-product/:id' component = {ProductForm}/>
+        <ProtectedRoutes path ='/add-product/:id?' component = {ProductForm}/>
         <ProtectedRoutes path ='/about' component = {About}/>
-        <ProtectedRoutes path ='/add-product' component = {ProductForm}/>
+        {/* <ProtectedRoutes path ='/add-product' component = {ProductForm}/> */}
         <ProtectedRoutes path ='/my-products' component = {ProductView}/>
         <ProtectedRoutes path ='/messages' component = {MessageComponent}/>
         <ProtectedRoutes path ='/profile' component = {ProfileForm}/>

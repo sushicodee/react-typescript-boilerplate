@@ -88,6 +88,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
     return newState;
   };
 
+  //for product
   useEffect(() => {
     const defaultTouch = defaultDerived('touched');
     const error = defaultDerived('error');
@@ -99,6 +100,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
       let title = params.id ? `Edit ${formName}` : `Add ${formName}`;
       setTitle(title);
       if (params.id) {
+        console.log(params.id,'here')
         axiosApi
           .post(`${url}/search`, { _id: params.id },auth.isAuthorized)
           .then((response) => {
@@ -117,6 +119,7 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
     }
   }, [params.id,url,formName]);
 
+  //for profile
   useEffect(() => {
     const defaultTouch = defaultDerived('touched');
     const error = defaultDerived('error');
@@ -147,7 +150,6 @@ const FormBuilder = ({ url, className, formName, form, buttonTitle ,auth}) => {
 
   const handleChange = (e,addData) => {
     let {name, value, type, checked, files } = e.target;
-    console.log({addData})
     if (type === 'checkbox') {
       value = checked;
     }
